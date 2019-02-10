@@ -52,11 +52,12 @@ ALTERNATIVE_NAMES = {
     'temple of sethralis': _DUNGEON_IDS['temple of sethraliss'],
     'sethralis': _DUNGEON_IDS['temple of sethraliss'],
     'snakes': _DUNGEON_IDS['temple of sethraliss'],
+    'tos': _DUNGEON_IDS['temple of sethraliss'],
 
     'the underrot': _DUNGEON_IDS['the underrot'],
     'underrot': _DUNGEON_IDS['the underrot'],
     'underot': _DUNGEON_IDS['the underrot'],
-    'UR': _DUNGEON_IDS['the underrot'],
+    'ur': _DUNGEON_IDS['the underrot'],
 
     'shrine of the storm': _DUNGEON_IDS['shrine of the storm'],
     'shrine': _DUNGEON_IDS['shrine of the storm'],
@@ -67,4 +68,62 @@ ALTERNATIVE_NAMES = {
     'siege': _DUNGEON_IDS['siege of boralus'],
     'boralus': _DUNGEON_IDS['siege of boralus'],
     'sob': _DUNGEON_IDS['siege of boralus'],
+}
+
+EXAMPLE_NAMES = {
+    'Atal\'Dazar': [
+        'ataldazar',
+        'ad',
+    ],
+
+    'Freehold': [
+        'fh',
+    ],
+
+    'Tol Dagor': [
+        'td',
+        'toldagor',
+    ],
+
+    'The MOTHERLODE!!': [
+        'the motherlode',
+        'ml',
+        'motherlode',
+    ],
+
+    'Waycrest Manor': [
+        'waycrest manor',
+        'waycrest',
+        'wm',
+    ],
+
+    'King\'s Rest': [
+        'kings rest',
+        'kr',
+        'kings',
+    ],
+
+    'Temple of Sethraliss': [
+        'temple',
+        'sethraliss',
+        'snakes',
+        'tos',
+    ],
+
+    'The Underrot': [
+        'underrot',
+        'ur',
+    ],
+
+    'Shrine of the Storm': [
+        'shrine',
+        'storm',
+        'sots',
+    ],
+
+    'Siege of Boralus': [
+        'siege',
+        'boralus',
+        'sob',
+    ],
 }
