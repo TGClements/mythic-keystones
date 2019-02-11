@@ -1,3 +1,4 @@
+*.db
 discord_token.py
 *.idea
 venv
