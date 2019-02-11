@@ -25,12 +25,7 @@ class DatabaseManager:
             print(e)
 
     def create_table(self, create_table_sql):
-        """
-
-        Creates a table within the current connection
-        :param create_table_sql: The SQL command to be executed
-        :return: (None)
-        """
+        """Creates a table within the current connection"""
         try:
             c = self.conn.cursor()
             c.execute(create_table_sql)
@@ -60,6 +55,52 @@ class DatabaseManager:
             self.conn.commit()
         except Error as e:
             print(e)
+
+    def get_keystones_single(self, user_id):
+        """
+
+        Gets the keystones for a single user
+
+        A user can be associated with multiple keystones if they
+        have multiple characters
+        :param user_id: (str) the id for a user
+        :return: list of tuples containing character name (str),
+        dungeon id (integer), and level (integer)
+        """
+        id_tuple = (user_id,)  # Needs to be passed as a tuple
+        sql_statement = '''
+        SELECT characterName, dungeonID, level
+        FROM Keystones
+        WHERE userID=?;
+        '''
+        cur = self.conn.cursor()
+        cur.execute(sql_statement, id_tuple)
+        return cur.fetchall()
+
+    def get_keystones_many(self, user_ids):
+        """
+
+        Gets the keystones for multiple users
+
+        A user can be associated with multiple keystones if they
+        have multiple characters
+        :param user_ids: (list of str) the user ids to get keys of
+        :return: dictionary mapping user ids (str) to a list of tuples
+        containing character name (str), dungeon id (integer), and
+        level (integer)
+        """
+        query_result = {}
+        sql_statement = '''
+        SELECT characterName, dungeonID, level
+        FROM Keystones
+        WHERE userID=?;
+        '''
+        cur = self.conn.cursor()
+        for user_id in user_ids:
+            id_tuple = (user_id,)
+            cur.execute(sql_statement, id_tuple)
+            query_result[user_id] = cur.fetchall()
+        return query_result
 
     def delete_all_keystones(self):
         """
@@ -93,7 +134,12 @@ class DatabaseManager:
 
 def main():
     db_manager = DatabaseManager()
-    db_manager.add_key(('123456', 'hovsep', 35, 10))
+    # db_manager.delete_all_keystones()
+    db_manager.add_keystone(('123456', 'hovsep', 35, 10))
+    db_manager.add_keystone(('123456', 'hop', 890, 1))
+    db_manager.add_keystone(('123456', 'hosep', 5, 180))
+    db_manager.add_keystone(('567', 'jon', 7, 100))
+    print(db_manager.get_keystones_many(['123456', '567']))
 
 
 if __name__ == '__main__':
