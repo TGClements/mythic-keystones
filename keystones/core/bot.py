@@ -1,6 +1,6 @@
 from discord.ext import commands
 
-from keystones.core import dungeon_names
+from keystones.dungeons import dungeon_names
 
 from discord_token import DISCORD_TOKEN
 
