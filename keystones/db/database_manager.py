@@ -84,7 +84,7 @@ class DatabaseManager:
 
         A user can be associated with multiple keystones if they
         have multiple characters
-        :param user_ids: (list of str) the user ids to get keys of
+        :param user_ids: (sequence of str) the user ids to get keys of
         :return: dictionary mapping user ids (str) to a list of tuples
         containing character name (str), dungeon id (integer), and
         level (integer)
