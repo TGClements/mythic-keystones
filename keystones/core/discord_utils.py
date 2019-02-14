@@ -1,8 +1,3 @@
-from itertools import chain
-
-import pprint
-
-
 def contains_mention_here(message):
     return '@here' in message.split()
 
@@ -42,18 +37,20 @@ def get_all_mentioned_users(message):
             mentioned_users.add(message.author.id)
         if here:
             # Add all users in the server who are online
-            mentioned_users.update({member.id for member in
-                                 message.channel.members if is_online(member)})
+            mentioned_users.update({member.id
+                                    for member in message.channel.members
+                                    if is_here(member)
+                                    })
         if message.role_mentions:
-            mentioned_users.update(chain({
-                member.id for role in message.role_mentions for member in
-                role.members
-            }))
+            mentioned_users.update({member.id
+                                    for role in message.role_mentions
+                                    for member in role.members
+                                    })
         if message.raw_mentions:  # List of user ids, don't need to convert
             mentioned_users.update(set(message.raw_mentions))
 
     return mentioned_users
 
 
-def is_online(member):
+def is_here(member):
     return str(member.status) != 'offline'
