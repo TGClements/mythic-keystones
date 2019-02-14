@@ -3,14 +3,16 @@ from sqlite3 import Error
 
 
 class DatabaseManager:
-    def __init__(self):
+    def __init__(self, directory='./'):
         """
 
         Initializes the DatabaseManager with a connection
         and Keystones table
         """
+        if directory[-1] != '/':
+            directory += '/'
         try:
-            self.conn = sqlite3.connect('.\keystones.db')
+            self.conn = sqlite3.connect(f'{directory}keystones.db')
             create_table_sql = '''
             CREATE TABLE IF NOT EXISTS Keystones (
             userID TEXT,

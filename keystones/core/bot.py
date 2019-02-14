@@ -12,7 +12,7 @@ import pprint
 description = 'A bot to keep track of mythic keystones'
 bot = commands.Bot(command_prefix='!', description=description)
 
-database_manager = DatabaseManager()
+database_manager = DatabaseManager('./db/')
 
 
 @bot.event
@@ -74,3 +74,4 @@ def main():
         bot.close()
     finally:
         print("End running at " + asctime(localtime(time())))
+
