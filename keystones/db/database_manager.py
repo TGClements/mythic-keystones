@@ -14,7 +14,7 @@ class DatabaseManager:
             create_table_sql = '''
             CREATE TABLE IF NOT EXISTS Keystones (
             userID TEXT,
-            characterName TEXT,
+            characterName TEXT COLLATE NOCASE,
             dungeonID INT NOT NULL,
             level INT NOT NULL,
             PRIMARY KEY (userID, characterName)
@@ -139,6 +139,9 @@ def main():
     db_manager.add_keystone(('123456', 'hop', 890, 1))
     db_manager.add_keystone(('123456', 'hosep', 5, 180))
     db_manager.add_keystone(('567', 'jon', 7, 100))
+    db_manager.add_keystone(('567', '', 7, 100))
+    db_manager.add_keystone(('567', 'jak', 7, 100))
+    db_manager.add_keystone(('567', 'jaK', 8, 99))
     print(db_manager.get_keystones_many(['123456', '567']))
 
 
