@@ -68,3 +68,8 @@ def get_all_mentioned_users(message: discord.Message):
 def is_here(member: discord.Member):
     """ Checks if a user would be pinged with @here """
     return str(member.status) != 'offline'
+
+
+def get_server_members(server: discord.Guild):
+    """ Returns a set of user ids for all server members """
+    return {member.id for member in server.members}
