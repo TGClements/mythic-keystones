@@ -1,8 +1,11 @@
 from discord.ext import commands
+from time import time, asctime, localtime
 
-from keystones.dungeons import dungeon_names
+from keystones.core import discord_utils, dungeon_utils
 
 from discord_token import DISCORD_TOKEN
+
+import pprint
 
 description = 'A bot to keep track of mythic keystones'
 bot = commands.Bot(command_prefix='!', description=description)
@@ -13,6 +16,7 @@ async def on_ready():
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
+    print("Start running at " + asctime(localtime(time())))
     print('------')
 
 
@@ -24,7 +28,7 @@ async def dungeons():
     accepted alternative names.
     :return: None
     """
-    names = dungeon_names.EXAMPLE_NAMES
+    names = dungeon_utils.EXAMPLE_NAMES
     formatted_names = []
     for name in names:
         alternative_names = ', '.join(names[name])
@@ -37,6 +41,15 @@ async def dungeons():
     await bot.say(message)
 
 
+@bot.command(name='get', aliases=['keys', 'key', 'keystones', 'keystone'],
+             pass_context=True)
+async def get_keys(ctx):
+    pprint.pprint(discord_utils.get_all_mentioned_users(ctx.message))
+
+
 def main():
-    bot.run(DISCORD_TOKEN)
-    bot.close()
+    try:
+        bot.run(DISCORD_TOKEN)
+        bot.close()
+    finally:
+        print("End running at " + asctime(localtime(time())))
