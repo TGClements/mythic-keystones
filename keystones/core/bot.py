@@ -56,8 +56,13 @@ async def add_key(ctx, *args):
                        '`!help dungeons` for help with dungeon names.')
         return
 
-    database_manager.add_keystone((ctx.author.id, character, dungeon, level))
-    await ctx.send(f'Added {dungeon} {level} for {character}')
+    keystone = (ctx.author.id, character, dungeon_id, level)
+    database_manager.add_keystone(keystone)
+
+    # The user entered name will likely be an alternative name, but we
+    # should use the real name when confirming that the key was added
+    dungeon_name = dungeon_utils.get_dungeon_name(dungeon_id)
+    await ctx.send(f'Added {dungeon_name} {level} for {character}')
 
 
 @bot.command(name='get', aliases=['keys', 'key', 'keystones', 'keystone'],

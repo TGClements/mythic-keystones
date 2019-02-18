@@ -32,7 +32,8 @@ def format_user_keys(server: discord.Guild, keys: dict):
         user_name = discord_utils.get_member(server, user_id).display_name
         user_header = f'{user_name}\'s keystones:\n'
         user_keys = '\n'.join([
-            f'   {character}: {dungeon} {level}'
+            f'   {character}: '
+            f'{dungeon_utils.get_dungeon_name(dungeon)} {level}'
             for character, dungeon, level in keys[user_id]
         ])
         key_strings.append(user_header + user_keys)
