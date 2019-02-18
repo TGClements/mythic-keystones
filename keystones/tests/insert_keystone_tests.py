@@ -50,3 +50,18 @@ class InsertKeystoneTests(unittest.TestCase):
         error = insert_keystone(ctx, message.get_args(), MagicMock())
         self.assertEqual(error, f"I'm sorry, I didn't understand the dungeon `of Sethraliss`. "
                                 f"Try `!help dungeons` for help with dungeon names.")
+
+    def test_backticks_invalid_dungeon(self):
+        user_input = "/addkey Moo `Fake Dungeon`` 10"
+        message = DiscordMessage(user_input)
+        ctx = DiscordCtx(message)
+        error = insert_keystone(ctx, message.get_args(), MagicMock())
+        self.assertEqual(error, f"I'm sorry, I didn't understand the dungeon `Fake Dungeon`. "
+                                f"Try `!help dungeons` for help with dungeon names.")
+
+    def test_backticks_invalid_level(self):
+        user_input = "/addkey Moo Temple of Sethraliss `Bad`Level`"
+        message = DiscordMessage(user_input)
+        ctx = DiscordCtx(message)
+        error = insert_keystone(ctx, message.get_args(), MagicMock())
+        self.assertEqual(error, f"`BadLevel` isn't a valid dungeon level; please input a number.")
