@@ -39,6 +39,8 @@ async def add_key(ctx, *args):
     and a dungeon level. The character name can't have spaces.
     """
     # TODO: Add error handling
+    # Restrictions on character names? Probably should prevent @ to avoid
+    # mention trolling
     if len(args) < 3:
         # Needs a character, dungeon, and key level
         await ctx.send(f'I\'m sorry, I didn\'t understand that. Try `!help '
@@ -63,7 +65,7 @@ async def add_key(ctx, *args):
 async def get_keys(ctx):
     mentioned_users = discord_utils.get_all_mentioned_users(ctx.message)
     keys = database_manager.get_keystones_many(mentioned_users)
-    string = messages.format_user_keys(keys)
+    string = messages.format_user_keys(ctx.guild, keys)
     await ctx.send(string)
 
 

@@ -1,4 +1,6 @@
-from keystones.core import dungeon_utils
+import discord
+
+from keystones.core import dungeon_utils, discord_utils
 
 
 def list_dungeons():
@@ -21,13 +23,17 @@ def list_dungeons():
     return f'{header}```{dungeons}```'
 
 
-def format_user_keys(keys: dict):
+def format_user_keys(server: discord.Guild, keys: dict):
     key_strings = []
-    for user in keys:
-        user_header = f'{user}\'s keystones:\n' # still need to convert user from id to name
+    for user_id in keys:
+        if not keys[user_id]:
+            continue
+
+        user_name = discord_utils.get_member(server, user_id).display_name
+        user_header = f'{user_name}\'s keystones:\n'
         user_keys = '\n'.join([
-            f'  {character}: {dungeon} {level}'
-            for character, dungeon, level in keys[user]
+            f'   {character}: {dungeon} {level}'
+            for character, dungeon, level in keys[user_id]
         ])
         key_strings.append(user_header + user_keys)
     return '\n'.join(key_strings)
