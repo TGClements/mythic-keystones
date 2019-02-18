@@ -1,7 +1,7 @@
 from discord.ext import commands
 from time import time, asctime, localtime
 
-from keystones.core import discord_utils, message_utils, dungeon_utils
+from keystones.core import discord_utils, messages, dungeon_utils
 
 from keystones.db.database_manager import DatabaseManager
 
@@ -26,7 +26,7 @@ async def on_ready():
 
 @bot.command(aliases=['dungeon'], pass_context=True)
 async def dungeons(ctx):
-    await ctx.send(message_utils.list_dungeons())
+    await ctx.send(messages.list_dungeons())
 
 
 @bot.command(name='add', pass_context=True)
@@ -45,9 +45,8 @@ async def add_key(ctx, *args):
                        f'{ctx.invoked_with}` for help with formatting.')
         return
 
-    character = args[0]
-    level = args[-1]
-    dungeon = ' '.join(args[1:-1])
+    character, *dungeon, level = args
+    dungeon = ' '.join(dungeon)
 
     dungeon_id = dungeon_utils.get_dungeon_id(dungeon)
     if dungeon_id is None:
@@ -63,9 +62,9 @@ async def add_key(ctx, *args):
              pass_context=True)
 async def get_keys(ctx):
     mentioned_users = discord_utils.get_all_mentioned_users(ctx.message)
-    pprint.pprint(mentioned_users)
     keys = database_manager.get_keystones_many(mentioned_users)
-    pprint.pprint(keys)
+    string = messages.format_user_keys(keys)
+    await ctx.send(string)
 
 
 def main():
