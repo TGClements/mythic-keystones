@@ -13,10 +13,12 @@ class DiscordUser:
 class DiscordMessage:
     """
     A mock Discord Message object.
+    :param content: The message body.
+    :param author: DiscordUser or None
     """
-    def __init__(self, content: str, author=DiscordUser()):
+    def __init__(self, content: str, author=None):
         self.content = content
-        self.author = author
+        self.author = author or DiscordUser()
 
     def get_args(self) -> List[str]:
         """
