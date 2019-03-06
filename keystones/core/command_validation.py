@@ -1,7 +1,7 @@
 from keystones.core.dungeon_utils import get_dungeon_id
 
 
-def insert_keystone(ctx, args, db_manager) -> str or None:
+def insert_keystone(ctx, db_manager, *args) -> str:
     """
     Attempt to insert a keystone based on a user command.
     :param ctx: Discord Context object for a message
