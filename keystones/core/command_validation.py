@@ -12,21 +12,24 @@ def insert_keystone(ctx, db_manager, *args) -> str:
     if len(args) < 3:
         return (f"I'm sorry, I didn't understand that. Try `!help "
                 f"{ctx.invoked_with}` for help with formatting.")
+
     character, *dungeon, level = args
     dungeon = sanitize(' '.join(dungeon))
     level = sanitize(level)
     dungeon_id = get_dungeon_id(dungeon)
+
     if not dungeon_id:
         return (f"I'm sorry, I didn't understand the dungeon `{dungeon}`. "
                 f"Try `!help dungeons` for help with dungeon names.")
     if not level.isdigit():
         return f"`{level}` isn't a valid dungeon level; please input a number."
+
     user_id = ctx.message.author.id
     db_manager.add_keystone(user_id, character, dungeon_id, level)
 
 
-def sanitize(input: str) -> str:
+def sanitize(message: str) -> str:
     """
-    Removes backticks (code tag) and linebreaks from an input.
+    Removes backticks (code tag) and linebreaks from a message.
     """
-    return input.replace('`', '').replace('\n','')
+    return message.replace('`', '').replace('\n', '')
