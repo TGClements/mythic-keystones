@@ -1,4 +1,4 @@
-from keystones.core import dungeon_utils
+from keystones.core import dungeon_utils, messages, discord_utils
 
 
 def insert_keystone(ctx, db_manager, *args) -> str:
@@ -32,7 +32,14 @@ def insert_keystone(ctx, db_manager, *args) -> str:
     # should use the real name when confirming that the key was added
     dungeon_name = dungeon_utils.get_dungeon_name(dungeon_id)
 
-    return f'Added {dungeon_name} {level} for {character}'
+    return f'Added {dungeon_name} +{level} for {character}'
+
+
+def get_keys(ctx, db_manager):
+    mentioned_users = discord_utils.get_all_mentioned_users(ctx.message)
+    keys = db_manager.get_keystones_many(mentioned_users)
+    message = messages.format_user_keys(ctx.guild, keys)
+    return message
 
 
 def sanitize(message: str) -> str:
