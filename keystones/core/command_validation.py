@@ -4,10 +4,10 @@ from keystones.core.dungeon_utils import get_dungeon_id
 def insert_keystone(ctx, db_manager, *args) -> str:
     """
     Attempt to insert a keystone based on a user command.
-    :param ctx: Discord Context object for a message
-    :param args: The arguments following a bot command prefix
-    :param db_manager: DatabaseManager
-    :return: str error if it was an invalid input; None if it was valid.
+    :param ctx: (discord.Context) - context object for invoked command
+    :param args: (tuple of str) - arguments used for the bot command
+    :param db_manager: (DatabaseManager) - manager for db being used
+    :return: (str) - message to send to Discord client
     """
     if len(args) < 3:
         return (f"I'm sorry, I didn't understand that. Try `!help "
