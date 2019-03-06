@@ -1,5 +1,5 @@
-def get_dungeon_id(dungeon_name):
-    return _ALTERNATIVE_NAMES.get(dungeon_name)
+def get_dungeon_id(dungeon_name: str):
+    return _ALTERNATIVE_NAMES.get(dungeon_name.lower())
 
 
 def get_dungeon_name(dungeon_id):
