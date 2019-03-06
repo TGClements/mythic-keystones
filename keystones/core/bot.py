@@ -1,7 +1,10 @@
 from discord.ext import commands
 from time import time, asctime, localtime
 
-from keystones.core import discord_utils, messages, dungeon_utils
+from keystones.core import (command_validation,
+                            discord_utils,
+                            dungeon_utils,
+                            messages)
 
 from keystones.db.database_manager import DatabaseManager
 
@@ -35,34 +38,11 @@ async def add_key(ctx, *args):
 
     Adds a keystone for the user.
 
-    Requires at least 3 args: a character name, a dungeon name,
-    and a dungeon level. The character name can't have spaces.
+    Requires at least 3 args: a character name, a dungeon name, and
+    a dungeon level. The character name must be a single word.
     """
-    # TODO: Add error handling
-    # Restrictions on character names? Probably should prevent @ to avoid
-    # mention trolling
-    if len(args) < 3:
-        # Needs a character, dungeon, and key level
-        await ctx.send(f'I\'m sorry, I didn\'t understand that. Try `!help '
-                       f'{ctx.invoked_with}` for help with formatting.')
-        return
-
-    character, *dungeon, level = args
-    dungeon = ' '.join(dungeon)
-
-    dungeon_id = dungeon_utils.get_dungeon_id(dungeon)
-    if dungeon_id is None:
-        await ctx.send('I\'m sorry, I didn\'t understand that dungeon. Try '
-                       '`!help dungeons` for help with dungeon names.')
-        return
-
-    keystone = (ctx.author.id, character, dungeon_id, level)
-    database_manager.add_keystone(keystone)
-
-    # The user entered name will likely be an alternative name, but we
-    # should use the real name when confirming that the key was added
-    dungeon_name = dungeon_utils.get_dungeon_name(dungeon_id)
-    await ctx.send(f'Added {dungeon_name} {level} for {character}')
+    message = command_validation.insert_keystone(ctx, database_manager, *args)
+    await ctx.send(message)
 
 
 @bot.command(name='get', aliases=['keys', 'key', 'keystones', 'keystone'],

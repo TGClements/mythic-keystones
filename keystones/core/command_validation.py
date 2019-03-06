@@ -1,4 +1,4 @@
-from keystones.core.dungeon_utils import get_dungeon_id
+from keystones.core import dungeon_utils
 
 
 def insert_keystone(ctx, db_manager, *args) -> str:
@@ -10,13 +10,14 @@ def insert_keystone(ctx, db_manager, *args) -> str:
     :return: (str) - message to send to Discord client
     """
     if len(args) < 3:
+        # Needs a character, dungeon, and key level
         return (f"I'm sorry, I didn't understand that. Try `!help "
                 f"{ctx.invoked_with}` for help with formatting.")
 
     character, *dungeon, level = args
     dungeon = sanitize(' '.join(dungeon))
     level = sanitize(level)
-    dungeon_id = get_dungeon_id(dungeon)
+    dungeon_id = dungeon_utils.get_dungeon_id(dungeon)
 
     if not dungeon_id:
         return (f"I'm sorry, I didn't understand the dungeon `{dungeon}`. "
@@ -24,8 +25,14 @@ def insert_keystone(ctx, db_manager, *args) -> str:
     if not level.isdigit():
         return f"`{level}` isn't a valid dungeon level; please input a number."
 
-    user_id = ctx.message.author.id
-    db_manager.add_keystone(user_id, character, dungeon_id, level)
+    keystone = (ctx.author.id, character, dungeon_id, level)
+    db_manager.add_keystone(keystone)
+
+    # The user entered name will likely be an alternative name, but we
+    # should use the real name when confirming that the key was added
+    dungeon_name = dungeon_utils.get_dungeon_name(dungeon_id)
+
+    return f'Added {dungeon_name} {level} for {character}'
 
 
 def sanitize(message: str) -> str:
