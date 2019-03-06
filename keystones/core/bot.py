@@ -3,19 +3,16 @@ from time import time, asctime, localtime
 
 from keystones.core import (command_validation,
                             discord_utils,
-                            dungeon_utils,
                             messages)
 
 from keystones.db.database_manager import DatabaseManager
 
 from discord_token import DISCORD_TOKEN
 
-import pprint
-
 description = 'A bot to keep track of mythic keystones'
 bot = commands.Bot(command_prefix='!', description=description)
 
-database_manager = DatabaseManager('./db/')
+db_manager = DatabaseManager('./db/')
 
 
 @bot.event
@@ -27,12 +24,14 @@ async def on_ready():
     print('------')
 
 
-@bot.command(aliases=['dungeon'], pass_context=True)
+@bot.command(aliases=['dungeon'],
+             pass_context=True)
 async def dungeons(ctx):
     await ctx.send(messages.list_dungeons())
 
 
-@bot.command(name='add', pass_context=True)
+@bot.command(name='add',
+             pass_context=True)
 async def add_key(ctx, *args):
     """
 
@@ -41,15 +40,16 @@ async def add_key(ctx, *args):
     Requires at least 3 args: a character name, a dungeon name, and
     a dungeon level. The character name must be a single word.
     """
-    message = command_validation.insert_keystone(ctx, database_manager, *args)
+    message = command_validation.insert_keystone(ctx, db_manager, *args)
     await ctx.send(message)
 
 
-@bot.command(name='get', aliases=['keys', 'key', 'keystones', 'keystone'],
+@bot.command(name='get',
+             aliases=['keys', 'key', 'keystones', 'keystone'],
              pass_context=True)
 async def get_keys(ctx):
     mentioned_users = discord_utils.get_all_mentioned_users(ctx.message)
-    keys = database_manager.get_keystones_many(mentioned_users)
+    keys = db_manager.get_keystones_many(mentioned_users)
     string = messages.format_user_keys(ctx.guild, keys)
     await ctx.send(string)
 
