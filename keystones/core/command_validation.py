@@ -14,17 +14,15 @@ def insert_keystone(ctx, db_manager, *args) -> str:
         return (f"I'm sorry, I didn't understand that. Try `!help "
                 f"{ctx.invoked_with}` for help with formatting.")
 
-    character, *dungeon, level = args
-    dungeon = sanitize(' '.join(dungeon))
-    level = sanitize(level)
+    character = args[0].strip()
+    dungeon = sanitize(' '.join(args[1:-1]))
+    level = sanitize(args[-1])
+
+    validation_message = _has_invalid_insertion_args(character, dungeon, level)
+    if validation_message:
+        return validation_message
+
     dungeon_id = dungeon_utils.get_dungeon_id(dungeon)
-
-    if not dungeon_id:
-        return (f"I'm sorry, I didn't understand the dungeon `{dungeon}`. "
-                f"Try `!help dungeons` for help with dungeon names.")
-    if not level.isdigit():
-        return f"`{level}` isn't a valid dungeon level; please input a number."
-
     keystone = (ctx.author.id, character, dungeon_id, level)
     db_manager.add_keystone(keystone)
 
@@ -33,6 +31,31 @@ def insert_keystone(ctx, db_manager, *args) -> str:
     dungeon_name = dungeon_utils.get_dungeon_name(dungeon_id)
 
     return f'Added {dungeon_name} +{level} for {character}'
+
+
+def _has_invalid_insertion_args(character, dungeon, level):
+    """
+
+    Checks if the add_key command had invalid arguments
+    :param character: (str) character name to associate with a key
+    :param dungeon: (str) dungeon name for the key
+    :param level: (str) level of the key
+    :return: (str or None) A string containing an error message,
+              or None if the arguments are all valid
+    """
+    invalid_name_chars = ('@', '`')
+    if any(banned_char in character for banned_char in invalid_name_chars):
+        return f"@ and ` characters are not allowed for character names"
+
+    dungeon_id = dungeon_utils.get_dungeon_id(dungeon)
+    if not dungeon_id:
+        return (f"I'm sorry, I didn't understand the dungeon `{dungeon}`. "
+                f"Try `!help dungeons` for help with dungeon names.")
+
+    if not level.isdigit():
+        return f"`{level}` isn't a valid dungeon level; please input a number."
+
+    return None
 
 
 def get_keys(ctx, db_manager):
