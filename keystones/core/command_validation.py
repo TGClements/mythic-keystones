@@ -1,3 +1,5 @@
+import re
+
 from keystones.core import dungeon_utils, messages, discord_utils
 
 
@@ -16,7 +18,7 @@ def insert_keystone(ctx, db_manager, *args) -> str:
 
     character = args[0].strip()
     dungeon = sanitize(' '.join(args[1:-1]))
-    level = sanitize(args[-1])
+    level = sanitize(args[-1].lstrip('+'))
 
     validation_message = _has_invalid_insertion_args(character, dungeon, level)
     if validation_message:
@@ -43,17 +45,17 @@ def _has_invalid_insertion_args(character, dungeon, level):
     :return: (str or None) A string containing an error message,
               or None if the arguments are all valid
     """
-    invalid_name_chars = ('@', '`')
-    if any(banned_char in character for banned_char in invalid_name_chars):
-        return f"@ and ` characters are not allowed for character names"
+    if not re.match('^[\w-]+$', character):
+        return (f"Character names can only contain letters, numbers, "
+                f"underscores, and dashes.")
 
     dungeon_id = dungeon_utils.get_dungeon_id(dungeon)
     if not dungeon_id:
         return (f"I'm sorry, I didn't understand the dungeon `{dungeon}`. "
-                f"Try `!help dungeons` for help with dungeon names.")
+                f"Try `!dungeons` to see dungeon names.")
 
-    if not level.isdigit():
-        return f"`{level}` isn't a valid dungeon level; please input a number."
+    if not level.isdigit() or int(level) < 2:
+        return f"`{level}` isn't a valid dungeon level. "
 
     return None
 
