@@ -116,27 +116,6 @@ class DatabaseManager:
         else:
             return query_result
 
-    def delete_all_keystones(self):
-        """
-
-        Deletes all rows from the Keystones table
-
-        Needless to say, but calling this when you don't want to
-        is very problematic and will lose all data in the table.
-        This is meant for the weekly resets.
-        :return: (bool) True if the transaction was successful
-        """
-        sql_statement = '''DELETE FROM Keystones;'''
-        try:
-            cur = self.conn.cursor()
-            cur.execute(sql_statement)
-            self.conn.commit()
-        except Error as e:
-            print(e)
-            return False
-        else:
-            return True
-
     def close_connection(self):
         """
 
@@ -154,7 +133,6 @@ class DatabaseManager:
 
 def main():
     db_manager = DatabaseManager()
-    # db_manager.delete_all_keystones()
     db_manager.add_keystone(('123456', 'hovsep', 35, 10))
     db_manager.add_keystone(('123456', 'hop', 890, 1))
     db_manager.add_keystone(('123456', 'hosep', 5, 180))
