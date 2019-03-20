@@ -37,4 +37,9 @@ def format_user_keys(server: discord.Guild, keys: dict):
             for character, dungeon, level in keys[user_id]
         ])
         key_strings.append(user_header + user_keys)
-    return '\n'.join(key_strings)
+
+    if key_strings:
+        return '\n'.join(key_strings)
+    else:
+        plural = 's' if len(keys) > 1 else ''
+        return f'There are no keystones for the mentioned user{plural}'

@@ -26,7 +26,10 @@ def insert_keystone(ctx, db_manager, *args) -> str:
 
     dungeon_id = dungeon_utils.get_dungeon_id(dungeon)
     keystone = (ctx.author.id, character, dungeon_id, level)
-    db_manager.add_keystone(keystone)
+
+    if not db_manager.add_keystone(keystone):
+        return (f'There was a problem adding {dungeon_name} +{level} '
+                f'for {character}.')
 
     # The user entered name will likely be an alternative name, but we
     # should use the real name when confirming that the key was added
@@ -63,6 +66,11 @@ def _has_invalid_insertion_args(character, dungeon, level):
 def get_keys(ctx, db_manager):
     mentioned_users = discord_utils.get_all_mentioned_users(ctx.message)
     keys = db_manager.get_keystones_many(mentioned_users)
+    # None signifies an error. `not keys` would be true when the
+    # mentioned users don't have keystones in the db
+    if keys is None:
+        return f'There was a problem getting your keystones.'
+
     message = messages.format_user_keys(ctx.guild, keys)
     return message
 

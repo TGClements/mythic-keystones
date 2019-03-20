@@ -44,7 +44,7 @@ class DatabaseManager:
         that row will be updated instead.
         :param insert_values: (tuple) a tuple containing the userID,
         characterName, dungeonID, and level to be added (in that order)
-        :return: (None)
+        :return: (bool) True if the transaction was successful
         """
         sql_statement = '''
         INSERT OR REPLACE INTO Keystones(userID, characterName, dungeonID, 
@@ -57,6 +57,9 @@ class DatabaseManager:
             self.conn.commit()
         except Error as e:
             print(e)
+            return False
+        else:
+            return True
 
     def get_keystones_single(self, user_id):
         """
@@ -75,9 +78,13 @@ class DatabaseManager:
         FROM Keystones
         WHERE userID=?;
         '''
-        cur = self.conn.cursor()
-        cur.execute(sql_statement, id_tuple)
-        return cur.fetchall()
+        try:
+            cur = self.conn.cursor()
+            cur.execute(sql_statement, id_tuple)
+            return cur.fetchall()
+        except Error as e:
+            print(e)
+            return None
 
     def get_keystones_many(self, user_ids):
         """
@@ -97,12 +104,17 @@ class DatabaseManager:
         FROM Keystones
         WHERE userID=?;
         '''
-        cur = self.conn.cursor()
-        for user_id in user_ids:
-            id_tuple = (user_id,)
-            cur.execute(sql_statement, id_tuple)
-            query_result[user_id] = cur.fetchall()
-        return query_result
+        try:
+            cur = self.conn.cursor()
+            for user_id in user_ids:
+                id_tuple = (user_id,)
+                cur.execute(sql_statement, id_tuple)
+                query_result[user_id] = cur.fetchall()
+        except Error as e:
+            print(e)
+            return None
+        else:
+            return query_result
 
     def delete_all_keystones(self):
         """
@@ -112,7 +124,7 @@ class DatabaseManager:
         Needless to say, but calling this when you don't want to
         is very problematic and will lose all data in the table.
         This is meant for the weekly resets.
-        :return: (None)
+        :return: (bool) True if the transaction was successful
         """
         sql_statement = '''DELETE FROM Keystones;'''
         try:
@@ -121,6 +133,9 @@ class DatabaseManager:
             self.conn.commit()
         except Error as e:
             print(e)
+            return False
+        else:
+            return True
 
     def close_connection(self):
         """
@@ -131,7 +146,10 @@ class DatabaseManager:
         using the database (ie the program has stopped running).
         :return: (None)
         """
-        self.conn.close()
+        try:
+            self.conn.close()
+        except Error as e:
+            print(e)
 
 
 def main():
@@ -143,8 +161,9 @@ def main():
     db_manager.add_keystone(('567', 'jon', 7, 100))
     db_manager.add_keystone(('567', '', 7, 100))
     db_manager.add_keystone(('567', 'jak', 7, 100))
-    db_manager.add_keystone(('567', 'jaK', 8, 99))
-    print(db_manager.get_keystones_many(['123456', '567']))
+    db_manager.add_keystone(('567', 'jaK', 8, '99'))
+    db_manager.add_keystone(('567', 'jaKe', 8, '+9'))
+    print(db_manager.get_keystones_many(['5678']))
 
 
 if __name__ == '__main__':
