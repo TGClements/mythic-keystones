@@ -34,3 +34,4 @@ class DiscordCtx:
     def __init__(self, discord_message: DiscordMessage):
         self.message = discord_message
         self.invoked_with = discord_message.content.split(' ').pop(0)
+        self.author = self.message.author

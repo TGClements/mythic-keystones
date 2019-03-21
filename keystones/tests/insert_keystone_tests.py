@@ -1,67 +1,77 @@
 import unittest
 from unittest.mock import MagicMock
 
+from keystones.tests.discord_mocks import DiscordMessage, DiscordCtx
+
 from keystones.core.command_validation import insert_keystone
-from keystones.tests.mocks import DiscordMessage, DiscordCtx
+
+from keystones.db.database_manager import DatabaseManager
 
 
 class InsertKeystoneTests(unittest.TestCase):
+    def setUp(self):
+        self.db_manager = DatabaseManager()
+        self.db_manager.add_keystone = MagicMock(return_value=True)
+
     def test_insert_invalid_dungeon(self):
-        user_input = "/addkey Moo dsjdaijdsa 10"
+        user_input = "!add Moo dsjdaijdsa 10"
         message = DiscordMessage(user_input)
         ctx = DiscordCtx(message)
-        error = insert_keystone(ctx, message.get_args(), MagicMock())
-        self.assertEqual(error, f"I'm sorry, I didn't understand the dungeon `dsjdaijdsa`. "
-                                f"Try `!help dungeons` for help with dungeon names.")
+        error = insert_keystone(ctx, self.db_manager, *message.get_args())
+        self.assertEqual(error, f"I'm sorry, I didn't understand the dungeon "
+                                f"`dsjdaijdsa`. Try `!dungeons` to see dungeon"
+                                f" names.")
 
     def test_insert_invalid_level(self):
-        user_input = "/addkey Moo Waycrest NaN"
+        user_input = "!add Moo Waycrest NaN"
         message = DiscordMessage(user_input)
         ctx = DiscordCtx(message)
-        error = insert_keystone(ctx, message.get_args(), MagicMock())
-        self.assertEqual(error, f"`NaN` isn't a valid dungeon level; please input a number.")
+        error = insert_keystone(ctx, self.db_manager, *message.get_args())
+        self.assertEqual(error, f"`NaN` isn't a valid dungeon level.")
 
     def test_invalid_num_args(self):
-        user_input = "/addkey Moo Too"
+        user_input = "!add Moo Too"
         message = DiscordMessage(user_input)
         ctx = DiscordCtx(message)
-        error = insert_keystone(ctx, message.get_args(), MagicMock())
+        error = insert_keystone(ctx, self.db_manager, *message.get_args())
         self.assertEqual(error, "I'm sorry, I didn't understand that. Try `!help "
                                 f"{ctx.invoked_with}` for help with formatting.")
 
     def test_valid_insertion(self):
-        user_input = "/addkey Moo Waycrest 10"
+        user_input = "!add Moo Waycrest 10"
         message = DiscordMessage(user_input)
         ctx = DiscordCtx(message)
-        error = insert_keystone(ctx, message.get_args(), MagicMock())
-        self.assertIsNone(error)
+        error = insert_keystone(ctx, self.db_manager, *message.get_args())
+        self.assertEqual(error, 'Added Waycrest Manor +10 for Moo')
 
     def test_valid_insertion_with_spaces(self):
-        user_input = "/addkey Moo Waycrest Manor 10"
+        user_input = "!add Moo Waycrest Manor 10"
         message = DiscordMessage(user_input)
         ctx = DiscordCtx(message)
-        error = insert_keystone(ctx, message.get_args(), MagicMock())
-        self.assertIsNone(error)
+        error = insert_keystone(ctx, self.db_manager, *message.get_args())
+        self.assertEqual(error, 'Added Waycrest Manor +10 for Moo')
 
     def test_no_character_name(self):
-        user_input = "/addkey Temple of Sethraliss 10"
+        user_input = "!add Temple of Sethraliss 10"
         message = DiscordMessage(user_input)
         ctx = DiscordCtx(message)
-        error = insert_keystone(ctx, message.get_args(), MagicMock())
-        self.assertEqual(error, f"I'm sorry, I didn't understand the dungeon `of Sethraliss`. "
-                                f"Try `!help dungeons` for help with dungeon names.")
+        error = insert_keystone(ctx, self.db_manager, *message.get_args())
+        self.assertEqual(error, f"I'm sorry, I didn't understand the dungeon "
+                                f"`of Sethraliss`. Try `!dungeons` to see "
+                                f"dungeon names.")
 
     def test_backticks_invalid_dungeon(self):
-        user_input = "/addkey Moo `Fake Dungeon`` 10"
+        user_input = "!add Moo `Fake Dungeon`` 10"
         message = DiscordMessage(user_input)
         ctx = DiscordCtx(message)
-        error = insert_keystone(ctx, message.get_args(), MagicMock())
-        self.assertEqual(error, f"I'm sorry, I didn't understand the dungeon `Fake Dungeon`. "
-                                f"Try `!help dungeons` for help with dungeon names.")
+        error = insert_keystone(ctx, self.db_manager, *message.get_args())
+        self.assertEqual(error, f"I'm sorry, I didn't understand the dungeon "
+                                f"`Fake Dungeon`. Try `!dungeons` to see "
+                                f"dungeon names.")
 
     def test_backticks_invalid_level(self):
-        user_input = "/addkey Moo Temple of Sethraliss `Bad`Level`"
+        user_input = "!add Moo Temple of Sethraliss `Bad`Level`"
         message = DiscordMessage(user_input)
         ctx = DiscordCtx(message)
-        error = insert_keystone(ctx, message.get_args(), MagicMock())
-        self.assertEqual(error, f"`BadLevel` isn't a valid dungeon level; please input a number.")
+        error = insert_keystone(ctx, self.db_manager, *message.get_args())
+        self.assertEqual(error, f"`BadLevel` isn't a valid dungeon level.")

@@ -58,7 +58,7 @@ def _has_invalid_insertion_args(character, dungeon, level):
                 f"Try `!dungeons` to see dungeon names.")
 
     if not level.isdigit() or int(level) < 2:
-        return f"`{level}` isn't a valid dungeon level. "
+        return f"`{level}` isn't a valid dungeon level."
 
     return None
 
