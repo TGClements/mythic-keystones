@@ -62,13 +62,13 @@ def _has_invalid_insertion_args(character, dungeon, level):
     return None
 
 
-def get_keys(ctx, db_manager):
+def get_keystones(ctx, db_manager):
     mentioned_users = discord_utils.get_all_mentioned_users(ctx.message)
     keys = db_manager.get_keystones_many(mentioned_users)
     # None signifies an error. `not keys` would be true when the
     # mentioned users don't have keystones in the db
     if keys is None:
-        return f'There was a problem getting your keystones.'
+        return f'There was a problem getting the keystones.'
 
     message = messages.format_user_keys(ctx.guild, keys)
     return message
