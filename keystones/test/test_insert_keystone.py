@@ -1,16 +1,14 @@
 import unittest
 from unittest.mock import MagicMock
 
-from keystones.tests.discord_mocks import DiscordMessage, DiscordCtx
+from keystones.test.discord_mocks import DiscordMessage, DiscordCtx
 
 from keystones.core.command_validation import insert_keystone
 
-from keystones.db.database_manager import DatabaseManager
 
-
-class InsertKeystoneTests(unittest.TestCase):
+class TestInsertKeystones(unittest.TestCase):
     def setUp(self):
-        self.db_manager = DatabaseManager()
+        self.db_manager = MagicMock()
         self.db_manager.add_keystone = MagicMock(return_value=True)
 
     def test_invalid_num_args(self):
