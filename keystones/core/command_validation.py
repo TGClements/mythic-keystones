@@ -18,22 +18,21 @@ def insert_keystone(ctx, db_manager, *args) -> str:
 
     character = args[0].strip()
     dungeon = sanitize(' '.join(args[1:-1]))
-    level = sanitize(args[-1].lstrip('+'))
+    level = sanitize(args[-1].lstrip('+'))  # Allow +<level> or just <level>
 
     validation_message = _has_invalid_insertion_args(character, dungeon, level)
     if validation_message:
         return validation_message
 
     dungeon_id = dungeon_utils.get_dungeon_id(dungeon)
-    keystone = (ctx.author.id, character, dungeon_id, level)
-
-    if not db_manager.add_keystone(keystone):
-        return (f'There was a problem adding {dungeon_name} +{level} '
-                f'for {character}.')
-
     # The user entered name will likely be an alternative name, but we
     # should use the real name when confirming that the key was added
     dungeon_name = dungeon_utils.get_dungeon_name(dungeon_id)
+
+    keystone = (ctx.author.id, character, dungeon_id, level)
+    if not db_manager.add_keystone(keystone):
+        return (f'There was a problem adding {dungeon_name} +{level} '
+                f'for {character}.')
 
     return f'Added {dungeon_name} +{level} for {character}'
 
