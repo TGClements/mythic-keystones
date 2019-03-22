@@ -34,8 +34,8 @@ class InsertKeystoneTests(unittest.TestCase):
         message = DiscordMessage(user_input)
         ctx = DiscordCtx(message)
         error = insert_keystone(ctx, self.db_manager, *message.get_args())
-        self.assertEqual(error, "I'm sorry, I didn't understand that. Try `!help "
-                                f"{ctx.invoked_with}` for help with formatting.")
+        self.assertEqual(error, "I'm sorry, I didn't understand that. Try "
+                                "`!help add` for help with formatting.")
 
     def test_valid_insertion(self):
         user_input = "!add Moo Waycrest 10"
@@ -46,6 +46,13 @@ class InsertKeystoneTests(unittest.TestCase):
 
     def test_valid_insertion_with_spaces(self):
         user_input = "!add Moo Waycrest Manor 10"
+        message = DiscordMessage(user_input)
+        ctx = DiscordCtx(message)
+        error = insert_keystone(ctx, self.db_manager, *message.get_args())
+        self.assertEqual(error, 'Added Waycrest Manor +10 for Moo')
+
+    def test_valid_insertion_plus_level(self):
+        user_input = "!add Moo Waycrest Manor +10"
         message = DiscordMessage(user_input)
         ctx = DiscordCtx(message)
         error = insert_keystone(ctx, self.db_manager, *message.get_args())
@@ -75,3 +82,18 @@ class InsertKeystoneTests(unittest.TestCase):
         ctx = DiscordCtx(message)
         error = insert_keystone(ctx, self.db_manager, *message.get_args())
         self.assertEqual(error, f"`BadLevel` isn't a valid dungeon level.")
+
+    def test_invalid_character_name(self):
+        user_input = "!add Moo's tos 5"
+        message = DiscordMessage(user_input)
+        ctx = DiscordCtx(message)
+        error = insert_keystone(ctx, self.db_manager, *message.get_args())
+        self.assertEqual(error, f"Character names can only contain letters, "
+                                f"numbers, underscores, and dashes.")
+
+    def test_valid_character_name_all(self):
+        user_input = "!add M_5-m wm 5"
+        message = DiscordMessage(user_input)
+        ctx = DiscordCtx(message)
+        error = insert_keystone(ctx, self.db_manager, *message.get_args())
+        self.assertEqual(error, f"Added Waycrest Manor +5 for M_5-m")
