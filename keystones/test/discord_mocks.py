@@ -5,7 +5,7 @@ class DiscordUser:
     """
     A mock Discord User object.
     """
-    def __init__(self, user_id=1, name="Discord User"):
+    def __init__(self, user_id=1, name='Discord User'):
         self.id = user_id
         self.name = name
 
@@ -22,9 +22,9 @@ class DiscordMessage:
 
     def get_args(self) -> List[str]:
         """
-        Helper to mock the 'args' parametre. Not a real Message property.
+        Helper to mock the 'args' parameter. Not a real Message property.
         """
-        return self.content.split(' ')[1:]
+        return self.content.split()[1:]
 
 
 class DiscordCtx:
@@ -33,5 +33,5 @@ class DiscordCtx:
     """
     def __init__(self, discord_message: DiscordMessage):
         self.message = discord_message
-        self.invoked_with = discord_message.content.split(' ').pop(0)[1:]
+        self.invoked_with = discord_message.content.split().pop(0)[1:]
         self.author = self.message.author

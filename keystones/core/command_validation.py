@@ -13,8 +13,8 @@ def insert_keystone(ctx, db_manager, *args) -> str:
     """
     if len(args) < 3:
         # Needs a character, dungeon, and key level
-        return (f"I'm sorry, I didn't understand that. Try `!help "
-                f"{ctx.invoked_with}` for help with formatting.")
+        return (f'I\'m sorry, I didn\'t understand that. Try `!help '
+                f'{ctx.invoked_with}` for help with formatting.')
 
     character = args[0].strip()
     dungeon = sanitize(' '.join(args[1:-1]))
@@ -48,16 +48,16 @@ def _has_invalid_insertion_args(character, dungeon, level):
               or None if the arguments are all valid
     """
     if not re.match('^[\w-]+$', character):
-        return (f"Character names can only contain letters, numbers, "
-                f"underscores, and dashes.")
+        return (f'Character names can only contain letters, numbers, '
+                f'underscores, and dashes.')
 
     dungeon_id = dungeon_utils.get_dungeon_id(dungeon)
     if not dungeon_id:
-        return (f"I'm sorry, I didn't understand the dungeon `{dungeon}`. "
-                f"Try `!dungeons` to see dungeon names.")
+        return (f'I\'m sorry, I didn\'t understand the dungeon `{dungeon}`. '
+                f'Try `!dungeons` to see dungeon names.')
 
     if not level.isdigit() or int(level) < 2:
-        return f"`{level}` isn't a valid dungeon level."
+        return f'`{level}` isn\'t a valid dungeon level.'
 
     return None
 
