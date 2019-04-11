@@ -3,6 +3,7 @@ from time import time, asctime, localtime
 
 from keystones.core import (command_validation,
                             discord_utils,
+                            help,
                             messages)
 
 from keystones.db.database_manager import DatabaseManager
@@ -11,8 +12,10 @@ from discord_token import DISCORD_TOKEN
 
 description = 'A bot to keep track of mythic keystones'
 bot = commands.Bot(command_prefix='!', description=description)
+bot.remove_command('help')
+bot.add_cog(help.HelpCog())
 
-db_manager = DatabaseManager('./db/')
+db_manager = DatabaseManager('./keystones/db/')
 
 
 @bot.event
@@ -20,7 +23,7 @@ async def on_ready():
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
-    print("Start running at " + asctime(localtime(time())))
+    print(f'Start running at {asctime(localtime(time()))}')
     print('------')
 
 
@@ -52,17 +55,19 @@ async def add_key(ctx, *args):
              aliases=['keys', 'key', 'keystones', 'keystone'],
              pass_context=True)
 async def get_keys(ctx):
+    if ctx.message.author.id == 178733934345977856:
+        await ctx.send('@Unknown#8671 stop griefing')
+        return
     if ctx.message.author.id != 117092043955765255:
         await ctx.send('Stop griefing')
         return
 
-    await ctx.send(command_validation.get_keys(ctx, db_manager))
+    await ctx.send(command_validation.get_keystones(ctx, db_manager))
 
 
 def main():
     try:
         bot.run(DISCORD_TOKEN)
-        bot.close()
     finally:
-        print("End running at " + asctime(localtime(time())))
+        print(f'End running at {asctime(localtime(time()))}')
 
