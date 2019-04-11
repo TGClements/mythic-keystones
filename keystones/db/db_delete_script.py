@@ -16,11 +16,11 @@ from sqlite3 import Error
 
 def main():
     try:
-        conn = sqlite3.connect('db/keystones.db')
+        conn = sqlite3.connect('keystones.db')
         cur = conn.cursor()
         cur.execute('DELETE FROM Keystones;')
         conn.commit()
-        print('Weekly reset complete. Entries deleted from Keystones table.')
+        print('Reset complete. All entries deleted from Keystones table.')
     except Error as e:
         print(e)
 
