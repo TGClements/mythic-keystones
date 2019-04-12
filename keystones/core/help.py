@@ -1,7 +1,7 @@
 from discord.ext import commands
 
 
-class HelpCog:
+class HelpCog(commands.Cog):
     @commands.group(pass_context=True)
     async def help(self, ctx):
         if ctx.invoked_subcommand is None:
