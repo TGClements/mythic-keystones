@@ -2,7 +2,6 @@ from discord.ext import commands
 from time import time, asctime, localtime
 
 from keystones.core import (command_validation,
-                            discord_utils,
                             help,
                             messages)
 
