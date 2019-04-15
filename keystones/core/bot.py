@@ -42,25 +42,13 @@ async def add_key(ctx, *args):
     Requires at least 3 args: a character name, a dungeon name, and
     a dungeon level. The character name must be a single word.
     """
-    if ctx.message.author.id != 117092043955765255:
-        await ctx.send('Stop griefing')
-        return
-
-    message = command_validation.insert_keystone(ctx, db_manager, *args)
-    await ctx.send(message)
+    await ctx.send(command_validation.insert_keystone(ctx, db_manager, *args))
 
 
 @bot.command(name='get',
              aliases=['keys', 'key', 'keystones', 'keystone'],
              pass_context=True)
 async def get_keys(ctx):
-    if ctx.message.author.id == 178733934345977856:
-        await ctx.send('@Unknown#8671 stop griefing')
-        return
-    if ctx.message.author.id != 117092043955765255:
-        await ctx.send('Stop griefing')
-        return
-
     await ctx.send(command_validation.get_keystones(ctx, db_manager))
 
 
