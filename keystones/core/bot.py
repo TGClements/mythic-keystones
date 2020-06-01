@@ -7,7 +7,7 @@ from keystones.core import (command_validation,
 
 from keystones.db.database_manager import DatabaseManager
 
-from discord_token import DISCORD_TOKEN
+from secrets import DISCORD_TOKEN
 
 description = 'A bot to keep track of mythic keystones'
 bot = commands.Bot(command_prefix='!', description=description)
