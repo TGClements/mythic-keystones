@@ -31,6 +31,7 @@ EXAMPLE_NAMES = {
         'waycrest manor',
         'waycrest',
         'wm',
+        'wcm',
     ],
 
     'King\'s Rest': [
@@ -62,6 +63,18 @@ EXAMPLE_NAMES = {
         'boralus',
         'sob',
     ],
+
+    'Operation: Mechagon - Junkyard': [
+        'junkyard',
+        'jy',
+        'junk',
+    ],
+
+    'Operation: Mechagon - Workshop': [
+        'workshop',
+        'ws',
+        'shop',
+    ],
 }
 
 # From the Blizzard API
@@ -78,6 +91,8 @@ _DUNGEON_IDS = {
     251: 'The Underrot',
     252: 'Shrine of the Storm',
     353: 'Siege of Boralus',  # Not a typo, the API actually returns 353
+    369: 'Operation: Mechagon - Junkyard',
+    370: 'Operation: Mechagon - Workshop',
 }
 
 # This dictionary is used to get the id of a dungeon given its name
@@ -92,6 +107,8 @@ _DUNGEON_IDS_REVERSE = {
     'the underrot': 251,
     'shrine of the storm': 252,
     'siege of boralus': 353,
+    'junkyard': 369,
+    'workshop': 370,
 }
 
 _ALTERNATIVE_NAMES = {
@@ -121,6 +138,8 @@ _ALTERNATIVE_NAMES = {
     'waycrest': _DUNGEON_IDS_REVERSE['waycrest manor'],
     'manor': _DUNGEON_IDS_REVERSE['waycrest manor'],
     'wm': _DUNGEON_IDS_REVERSE['waycrest manor'],
+    'wcm': _DUNGEON_IDS_REVERSE['waycrest manor'],
+
 
     'kings rest': _DUNGEON_IDS_REVERSE['kings rest'],
     'king\'s rest': _DUNGEON_IDS_REVERSE['kings rest'],
@@ -150,4 +169,18 @@ _ALTERNATIVE_NAMES = {
     'siege': _DUNGEON_IDS_REVERSE['siege of boralus'],
     'boralus': _DUNGEON_IDS_REVERSE['siege of boralus'],
     'sob': _DUNGEON_IDS_REVERSE['siege of boralus'],
+
+    'junkyard': _DUNGEON_IDS_REVERSE['junkyard'],
+    'operation: mechagon - junkyard': _DUNGEON_IDS_REVERSE['junkyard'],
+    'mechagon - junkyard' : _DUNGEON_IDS_REVERSE['junkyard'],
+    'mechagon junkyard': _DUNGEON_IDS_REVERSE['junkyard'],
+    'jy': _DUNGEON_IDS_REVERSE['junkyard'],
+    'junk': _DUNGEON_IDS_REVERSE['junkyard'],
+
+    'workshop': _DUNGEON_IDS_REVERSE['workshop'],
+    'operation: mechagon - workshop': _DUNGEON_IDS_REVERSE['workshop'],
+    'mechagon - workshop': _DUNGEON_IDS_REVERSE['workshop'],
+    'mechagon workshop': _DUNGEON_IDS_REVERSE['workshop'],
+    'ws': _DUNGEON_IDS_REVERSE['workshop'],
+    'shop': _DUNGEON_IDS_REVERSE['workshop'],
 }
