@@ -16,7 +16,7 @@ from sqlite3 import Error
 
 def main():
     try:
-        conn = sqlite3.connect('keystones.db')
+        conn = sqlite3.connect('./keystones/db/keystones.db')
         cur = conn.cursor()
         cur.execute('DELETE FROM Keystones;')
         conn.commit()

@@ -42,7 +42,7 @@ any existing
 `!keys @user` - gets all keystones for the mentioned user.
 `!keys @everyone` - gets all keystones for everyone in the server. 
 Alternatively, you can use `!keys everyone` or `!keys all`.
-!keys @here` - gets all keystones for online members in the server. 
+`!keys @here` - gets all keystones for online members in the server. 
 Alternatively, you can use `!keys here` or `!keys online`.
 You can also combine multiple mentions in one command.
                        ''')
