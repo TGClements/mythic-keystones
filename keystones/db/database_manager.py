@@ -19,7 +19,8 @@ class DatabaseManager:
             characterName TEXT COLLATE NOCASE,
             dungeonID INT NOT NULL,
             level INT NOT NULL,
-            PRIMARY KEY (userID, characterName)
+            currentTimeperiod INT NOT NULL,
+            PRIMARY KEY (userID, characterName, currentTimeperiod)
             );
             '''
             self.create_table(create_table_sql)
@@ -47,9 +48,9 @@ class DatabaseManager:
         :return: (bool) True if the transaction was successful
         """
         sql_statement = '''
-        INSERT OR REPLACE INTO Keystones(userID, characterName, dungeonID, 
-        level)
-        VALUES (?, ?, ?, ?);
+        INSERT OR REPLACE INTO Keystones(userID, characterName, dungeonID,
+        level, currentTimeperiod)
+        VALUES (?, ?, ?, ?, ?);
         '''
         try:
             cur = self.conn.cursor()
@@ -61,7 +62,7 @@ class DatabaseManager:
         else:
             return True
 
-    def get_keystones_single(self, user_id):
+    def get_keystones_single(self, user_id, current_timeperiod):
         """
 
         Gets the keystones for a single user
@@ -72,21 +73,21 @@ class DatabaseManager:
         :return: list of tuples containing character name (str),
         dungeon id (integer), and level (integer)
         """
-        id_tuple = (user_id,)  # Needs to be passed as a tuple
+        where_inserts = (user_id, current_timeperiod)
         sql_statement = '''
         SELECT characterName, dungeonID, level
         FROM Keystones
-        WHERE userID=?;
+        WHERE userID=? AND currentTimeperiod=?;
         '''
         try:
             cur = self.conn.cursor()
-            cur.execute(sql_statement, id_tuple)
+            cur.execute(sql_statement, where_inserts)
             return cur.fetchall()
         except Error as e:
             print(e)
             return None
 
-    def get_keystones_many(self, user_ids):
+    def get_keystones_many(self, user_ids, current_timeperiod):
         """
 
         Gets the keystones for multiple users
@@ -102,13 +103,13 @@ class DatabaseManager:
         sql_statement = '''
         SELECT characterName, dungeonID, level
         FROM Keystones
-        WHERE userID=?;
+        WHERE userID=? AND currentTimeperiod=?;
         '''
         try:
             cur = self.conn.cursor()
             for user_id in user_ids:
-                id_tuple = (user_id,)
-                cur.execute(sql_statement, id_tuple)
+                where_inserts = (user_id, current_timeperiod)
+                cur.execute(sql_statement, where_inserts)
                 query_result[user_id] = cur.fetchall()
         except Error as e:
             print(e)
@@ -129,20 +130,3 @@ class DatabaseManager:
             self.conn.close()
         except Error as e:
             print(e)
-
-
-def main():
-    db_manager = DatabaseManager()
-    db_manager.add_keystone(('123456', 'hovsep', 35, 10))
-    db_manager.add_keystone(('123456', 'hop', 890, 1))
-    db_manager.add_keystone(('123456', 'hosep', 5, 180))
-    db_manager.add_keystone(('567', 'jon', 7, 100))
-    db_manager.add_keystone(('567', '', 7, 100))
-    db_manager.add_keystone(('567', 'jak', 7, 100))
-    db_manager.add_keystone(('567', 'jaK', 8, '99'))
-    db_manager.add_keystone(('567', 'jaKe', 8, '+9'))
-    print(db_manager.get_keystones_many(['5678']))
-
-
-if __name__ == '__main__':
-    main()

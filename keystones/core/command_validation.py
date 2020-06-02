@@ -1,6 +1,6 @@
 import re
 
-from keystones.core import dungeon_utils, messages, discord_utils
+from keystones.core import dungeon_utils, messages, discord_utils, blizzard_api
 
 
 def insert_keystone(ctx, db_manager, *args) -> str:
@@ -29,7 +29,10 @@ def insert_keystone(ctx, db_manager, *args) -> str:
     # should use the real name when confirming that the key was added
     dungeon_name = dungeon_utils.get_dungeon_name(dungeon_id)
 
-    keystone = (ctx.author.id, character, dungeon_id, level)
+    blizz_api = blizzard_api.get_instance()
+    current_timeperiod = api.current_timeperiod
+
+    keystone = (ctx.author.id, character, dungeon_id, level, current_timeperiod)
     if not db_manager.add_keystone(keystone):
         return (f'There was a problem adding {dungeon_name} +{level} '
                 f'for {character}.')
@@ -64,7 +67,10 @@ def _has_invalid_insertion_args(character, dungeon, level):
 
 def get_keystones(ctx, db_manager):
     mentioned_users = discord_utils.get_all_mentioned_users(ctx.message)
-    keys = db_manager.get_keystones_many(mentioned_users)
+    blizz_api = blizzard_api.get_instance()
+    current_timeperiod = api.current_timeperiod
+
+    keys = db_manager.get_keystones_many(mentioned_users, current_timeperiod)
     # None signifies an error. `not keys` would be true when the
     # mentioned users don't have keystones in the db
     if keys is None:
