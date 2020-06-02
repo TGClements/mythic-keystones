@@ -25,18 +25,26 @@ class BlizzardAPI(OAuth):
         OAuth.__init__(self, BLIZZARD_CLIENT_ID, BLIZZARD_CLIENT_SECRET, BLIZZARD_API_TOKEN_URL)
         BlizzardAPI.__instance = self
 
-    def get_dungeons(self):
-        data = self.get('https://us.api.blizzard.com/data/wow/mythic-keystone/dungeon/index?namespace=dynamic-us&locale=en_US')
-        return data
+        # Don't call the api unless we actually need to
+        self._current_period = None
+        self._current_period_end_timestamp = None
 
-    def get_current_period(self):
+    @property
+    def current_period(self):
+        if not self._current_period:
+            self._update_current_period()
+        return self._current_period
+
+    def _update_current_period(self):
         data = self.get('https://us.api.blizzard.com/data/wow/mythic-keystone/period/index?namespace=dynamic-us&locale=en_US')
-        self.current_period = data.current_period
-        return data.current_period
+        self._current_period = data['current_period']['id']
 
-    def get_current_period_end_timestamp(self):
-        if not self.current_period:
-            self.get_current_period()
+    @property
+    def current_period_end_timestamp(self):
+        if not self._current_period_end_timestamp:
+            self._update_current_period_end_timestamp()
+        return self._current_period_end_timestamp
+
+    def _update_current_period_end_timestamp(self):
         data = self.get(f'https://us.api.blizzard.com/data/wow/mythic-keystone/period/{self.current_period}?namespace=dynamic-us&locale=en_US')
-        self.current_period_end_timestamp = data.end_timestamp
-        return data.end_timestamp
+        self._current_period_end_timestamp = data['end_timestamp']
