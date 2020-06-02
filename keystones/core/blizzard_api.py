@@ -1,3 +1,4 @@
+import time
 from secrets import BLIZZARD_CLIENT_ID, BLIZZARD_CLIENT_SECRET
 
 from keystones.core.oauth import OAuth
@@ -31,7 +32,8 @@ class BlizzardAPI(OAuth):
 
     @property
     def current_period(self):
-        if not self._current_period:
+        current_timestamp = time.time() * 1000
+        if not self._current_period or current_timestamp > self.current_period_end_timestamp:
             self._update_current_period()
         return self._current_period
 
