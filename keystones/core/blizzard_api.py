@@ -33,7 +33,7 @@ class BlizzardAPI(OAuth):
     @property
     def current_period(self):
         current_timestamp = time.time() * 1000
-        if not self._current_period or current_timestamp > self.current_period_end_timestamp:
+        if (not self._current_period) or current_timestamp > self.current_period_end_timestamp:
             self._update_current_period()
         return self._current_period
 
