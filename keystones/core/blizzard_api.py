@@ -13,6 +13,27 @@ BLIZZARD_API_TOKEN_URL = 'https://us.battle.net/oauth/token'
 class BlizzardAPI(OAuth):
     __instance = None
 
+    # Affixes are on a set rotation, but it's not directly available
+    # through the API so we need to hardcode the rotation.
+    affix_rotation = [
+        [10, 8, 12],
+        [9, 5, 3],
+        [10, 7, 2],
+        [9, 11, 4],
+        [10, 8, 14],
+        [9, 7, 13],
+        [10, 11, 3],
+        [9, 6, 4],
+        [10, 5, 14],
+        [9, 11, 2],
+        [10, 7, 12],
+        [9, 6, 13],
+    ]
+
+    # The seasonal affix is also not available through the api
+    # so we need to manually set it as well
+    current_seasonal_affix = 120
+
     @staticmethod
     def get_instance():
         if not BlizzardAPI.__instance:
@@ -50,3 +71,10 @@ class BlizzardAPI(OAuth):
     def _update_current_period_end_timestamp(self):
         data = self.get(f'https://us.api.blizzard.com/data/wow/mythic-keystone/period/{self.current_period}?namespace=dynamic-us&locale=en_US')
         self._current_period_end_timestamp = data['end_timestamp']
+
+    def get_affixes_for_timeperiod(self, timeperiod):
+        return BlizzardAPI.affix_rotation[timeperiod % len(BlizzardAPI.affix_rotation)] + [BlizzardAPI.current_seasonal_affix]
+
+    def get_affix_details(self, affix_id):
+        data = self.get(f'https://us.api.blizzard.com/data/wow/keystone-affix/{affix_id}?namespace=static-us&locale=en_US')
+        return data['description']
