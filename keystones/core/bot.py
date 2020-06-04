@@ -34,9 +34,10 @@ async def reset(ctx):
         ctx.send('This command is reserved for Hovsep')
 
 
-@bot.command(aliases=['dungeon'],
+@bot.command(name='dungeons',
+             aliases=['dungeon'],
              pass_context=True)
-async def dungeons(ctx):
+async def list_dungeons(ctx):
     await ctx.send(messages.list_dungeons())
 
 
