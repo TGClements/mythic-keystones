@@ -26,5 +26,5 @@ class OAuth():
             resp = self.oauth.get(url)
         finally:
             if resp.status_code != 200:
-                raise Exception(resp.status_code)
+                resp.raise_for_status()
             return resp.json()
