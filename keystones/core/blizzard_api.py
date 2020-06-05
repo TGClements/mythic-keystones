@@ -78,4 +78,4 @@ class BlizzardAPI(OAuth):
 
     def get_affix_details(self, affix_id):
         data = self.get(f'https://us.api.blizzard.com/data/wow/keystone-affix/{affix_id}?namespace=static-us&locale=en_US')
-        return data['description']
+        return (data['name'], data['description'])

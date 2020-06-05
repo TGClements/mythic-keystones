@@ -43,3 +43,6 @@ def format_user_keys(server: discord.Guild, keys: dict):
     else:
         plural = 's' if len(keys) > 1 else ''
         return f'There are no keystones for the mentioned user{plural}'
+
+def format_affix_details(affix_name, affix_description):
+    return f'{affix_name}: {affix_description}'

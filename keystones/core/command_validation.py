@@ -1,6 +1,6 @@
 import re
 
-from keystones.core import dungeon_utils, messages, discord_utils, blizzard_api
+from keystones.core import dungeon_utils, messages, discord_utils, blizzard_api, affix_utils
 
 
 def insert_keystone(ctx, db_manager, *args) -> str:
@@ -29,8 +29,8 @@ def insert_keystone(ctx, db_manager, *args) -> str:
     # should use the real name when confirming that the key was added
     dungeon_name = dungeon_utils.get_dungeon_name(dungeon_id)
 
-    blizz_api = blizzard_api.get_instance()
-    current_timeperiod = api.current_timeperiod
+    blizz_api = blizzard_api.BlizzardAPI.get_instance()
+    current_timeperiod = blizz_api.current_period
 
     keystone = (ctx.author.id, character, dungeon_id, level, current_timeperiod)
     if not db_manager.add_keystone(keystone):
@@ -67,8 +67,8 @@ def _has_invalid_insertion_args(character, dungeon, level):
 
 def get_keystones(ctx, db_manager):
     mentioned_users = discord_utils.get_all_mentioned_users(ctx.message)
-    blizz_api = blizzard_api.get_instance()
-    current_timeperiod = api.current_timeperiod
+    blizz_api = blizzard_api.BlizzardAPI.get_instance()
+    current_timeperiod = blizz_api.current_period
 
     keys = db_manager.get_keystones_many(mentioned_users, current_timeperiod)
     # None signifies an error. `not keys` would be true when the
@@ -78,6 +78,14 @@ def get_keystones(ctx, db_manager):
 
     message = messages.format_user_keys(ctx.guild, keys)
     return message
+
+
+def get_affix_details(ctx, affix_name):
+    blizz_api = blizzard_api.BlizzardAPI.get_instance()
+    affix_id = affix_utils.get_affix_id(affix_name)
+    affix_details = blizz_api.get_affix_details(affix_id)
+
+    return messages.format_affix_details(*affix_details)
 
 
 def sanitize(message: str) -> str:

@@ -33,13 +33,16 @@ async def reset(ctx):
     else:
         ctx.send('This command is reserved for Hovsep')
 
-
 @bot.command(name='dungeons',
              aliases=['dungeon'],
              pass_context=True)
 async def list_dungeons(ctx):
     await ctx.send(messages.list_dungeons())
 
+@bot.command(name='affix',
+             pass_context=True)
+async def get_affix_details(ctx, affix_name):
+    await ctx.send(command_validation.get_affix_details(ctx, affix_name))
 
 @bot.command(name='add',
              pass_context=True)
