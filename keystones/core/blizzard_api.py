@@ -54,23 +54,24 @@ class BlizzardAPI(OAuth):
     @property
     def current_period(self):
         current_timestamp = time.time() * 1000
-        if (not self._current_period) or current_timestamp > self.current_period_end_timestamp:
+        if (not self._current_period) or current_timestamp > self._current_period_end_timestamp:
             self._update_current_period()
         return self._current_period
 
     def _update_current_period(self):
-        data = self.get('https://us.api.blizzard.com/data/wow/mythic-keystone/period/index?namespace=dynamic-us&locale=en_US')
-        self._current_period = data['current_period']['id']
+        # The current period and current period end timestamp are closely related so fetch them together
+        period_data = self.get('https://us.api.blizzard.com/data/wow/mythic-keystone/period/index?namespace=dynamic-us&locale=en_US')
+        self._current_period = period_data['current_period']['id']
+
+        time_data = self.get(f'https://us.api.blizzard.com/data/wow/mythic-keystone/period/{self._current_period}?namespace=dynamic-us&locale=en_US')
+        self._current_period_end_timestamp = time_data['end_timestamp']
 
     @property
     def current_period_end_timestamp(self):
-        if not self._current_period_end_timestamp:
-            self._update_current_period_end_timestamp()
+        current_timestamp = time.time() * 1000
+        if (not self._current_period_end_timestamp) or current_timestamp > self._current_period_end_timestamp:
+            self._update_current_period()
         return self._current_period_end_timestamp
-
-    def _update_current_period_end_timestamp(self):
-        data = self.get(f'https://us.api.blizzard.com/data/wow/mythic-keystone/period/{self.current_period}?namespace=dynamic-us&locale=en_US')
-        self._current_period_end_timestamp = data['end_timestamp']
 
     def get_affixes_for_timeperiod(self, timeperiod):
         return BlizzardAPI.affix_rotation[timeperiod % len(BlizzardAPI.affix_rotation)] + [BlizzardAPI.current_seasonal_affix]
