@@ -49,3 +49,18 @@ def format_affix_details(affix_name, affix_description):
 
 def format_period_affixes(affixes):
     return ', '.join(affixes)
+
+def format_dungeon_timers(dungeon_name, timers):
+    formatted_times = '\n'.join(
+        f'+{upgrade_level}: {_format_timer(duration)}'
+        for (upgrade_level, duration) in timers.items()
+    )
+    return f'{dungeon_name} timers:\n{formatted_times}'
+
+def _format_timer(time):
+    seconds = time // 1000 # ensure no float
+    minutes = seconds // 60
+    seconds_leftover = seconds % 60
+    extra_zero = '0' if seconds_leftover < 10 else ''
+
+    return f'{minutes}:{extra_zero}{seconds_leftover}'

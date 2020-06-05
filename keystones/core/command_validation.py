@@ -106,6 +106,22 @@ def get_period_affixes(ctx, period_offset):
     return messages.format_period_affixes(affix_names)
 
 
+def get_dungeon_timers(ctx, *dungeon_name):
+    if not dungeon_name:
+        return 'You must enter a dungeon name. Try `!dungeons` to see dungeon names.'
+
+    dungeon_name = sanitize(' '.join(dungeon_name))
+    dungeon_id = dungeon_utils.get_dungeon_id(dungeon_name)
+    if not dungeon_id:
+        return (f'I\'m sorry, I didn\'t understand the dungeon `{dungeon_name}`. '
+                f'Try `!dungeons` to see dungeon names.')
+    official_dungeon_name = dungeon_utils.get_dungeon_name(dungeon_id)
+
+    blizz_api = blizzard_api.BlizzardAPI.get_instance()
+    timers = blizz_api.get_dungeon_timers(dungeon_id)
+    return messages.format_dungeon_timers(official_dungeon_name, timers)
+
+
 def sanitize(message: str) -> str:
     """
     Removes backticks (code tag) and linebreaks from a message.

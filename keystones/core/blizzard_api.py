@@ -79,3 +79,9 @@ class BlizzardAPI(OAuth):
     def get_affix_details(self, affix_id):
         data = self.get(f'https://us.api.blizzard.com/data/wow/keystone-affix/{affix_id}?namespace=static-us&locale=en_US')
         return (data['name'], data['description'])
+
+    def get_dungeon_timers(self, dungeon_id):
+        data = self.get(f'https://us.api.blizzard.com/data/wow/mythic-keystone/dungeon/{dungeon_id}?namespace=dynamic-us&locale=en_US')
+        upgrade_levels = {entry['upgrade_level']: entry['qualifying_duration']
+                          for entry in data['keystone_upgrades']}
+        return upgrade_levels

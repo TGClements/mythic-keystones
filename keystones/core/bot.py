@@ -49,6 +49,12 @@ async def get_affix_details(ctx, affix_name):
 async def get_period_affixes(ctx, period_offset=0):
     await ctx.send(command_validation.get_period_affixes(ctx, period_offset))
 
+@bot.command(name='timer',
+             aliases=['timers'],
+             pass_context=True)
+async def get_dungeon_timers(ctx, *dungeon_name):
+    await ctx.send(command_validation.get_dungeon_timers(ctx, *dungeon_name))
+
 @bot.command(name='add',
              pass_context=True)
 async def add_key(ctx, *args):
