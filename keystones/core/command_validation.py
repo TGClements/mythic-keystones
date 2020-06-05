@@ -88,6 +88,24 @@ def get_affix_details(ctx, affix_name):
     return messages.format_affix_details(*affix_details)
 
 
+def get_period_affixes(ctx, period_offset):
+    try:
+        period_offset = int(period_offset)
+    except ValueError:
+        return 'The offset must be an integer between 0 and 11 (inclusive).'
+    if period_offset < 0:
+        return 'Cannot get past affixes.'
+    if period_offset > 11:
+        # Only allow one full rotation of affixes
+        return 'Cannot get affixes more than 11 weeks into the future.'
+
+    blizz_api = blizzard_api.BlizzardAPI.get_instance()
+    affixes = blizz_api.get_affixes_for_timeperiod(blizz_api.current_period + period_offset)
+    affix_names = (affix_utils.get_affix_name(affix_id) for affix_id in affixes)
+
+    return messages.format_period_affixes(affix_names)
+
+
 def sanitize(message: str) -> str:
     """
     Removes backticks (code tag) and linebreaks from a message.

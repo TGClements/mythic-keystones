@@ -44,6 +44,11 @@ async def list_dungeons(ctx):
 async def get_affix_details(ctx, affix_name):
     await ctx.send(command_validation.get_affix_details(ctx, affix_name))
 
+@bot.command(name='affixes',
+             pass_context=True)
+async def get_period_affixes(ctx, period_offset=0):
+    await ctx.send(command_validation.get_period_affixes(ctx, period_offset))
+
 @bot.command(name='add',
              pass_context=True)
 async def add_key(ctx, *args):

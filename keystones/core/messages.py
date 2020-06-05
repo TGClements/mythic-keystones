@@ -46,3 +46,6 @@ def format_user_keys(server: discord.Guild, keys: dict):
 
 def format_affix_details(affix_name, affix_description):
     return f'{affix_name}: {affix_description}'
+
+def format_period_affixes(affixes):
+    return ', '.join(affixes)
