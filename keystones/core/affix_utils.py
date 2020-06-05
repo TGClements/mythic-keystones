@@ -3,7 +3,7 @@ def get_affix_name(affix_id):
 
 
 def get_affix_id(affix_name):
-    return _AFFIX_IDS_REVERSE[affix_name]
+    return _AFFIX_IDS_REVERSE[affix_name.lower()]
 
 # From the Blizzard API
 # Needs to be kept like a two way dictionary
@@ -31,23 +31,23 @@ _AFFIX_IDS = {
 
 
 _AFFIX_IDS_REVERSE = {
-    'Overflowing': 1,
-    'Skittish': 2,
-    'Volcanic': 3,
-    'Necrotic': 4,
-    'Teeming': 5,
-    'Raging': 6,
-    'Bolstering': 7,
-    'Sanguine': 8,
-    'Tyrannical': 9,
-    'Fortified': 10,
-    'Bursting': 11,
-    'Grievous': 12,
-    'Explosive': 13,
-    'Quaking': 14,
-    'Relentless': 15,
-    'Infested': 16,
-    'Reaping': 117,
-    'Beguiling': 119,
-    'Awakened': 120,
+    'overflowing': 1,
+    'skittish': 2,
+    'volcanic': 3,
+    'necrotic': 4,
+    'teeming': 5,
+    'raging': 6,
+    'bolstering': 7,
+    'sanguine': 8,
+    'tyrannical': 9,
+    'fortified': 10,
+    'bursting': 11,
+    'grievous': 12,
+    'explosive': 13,
+    'quaking': 14,
+    'relentless': 15,
+    'infested': 16,
+    'reaping': 117,
+    'beguiling': 119,
+    'awakened': 120,
 }
