@@ -14,6 +14,9 @@ dungeon and level for your character with the given name.
 `!keys` - gets all of your keystones. You can check someone else's keys by
 mentioning them.
 `!dungeons` - lists all dungeons and some accepted alternative names.
+`!affix <affix_name>` - gets information about the specified affix.
+`!affixes <offset>` - lists information about affixes for <offset> weeks into the future. The offset defaults to 0 and only supports integer offsets of 0-11.
+`!timer <dungeon>` - gets information about keystone timers for the specified dungeon.
                            ''')
 
     @help.command(aliases=['dungeon'],
