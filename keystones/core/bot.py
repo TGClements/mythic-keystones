@@ -25,14 +25,6 @@ async def on_ready():
     print(f'Start running at {asctime(localtime(time()))}')
     print('------')
 
-@bot.command(pass_context=True)
-async def reset(ctx):
-    if ctx.message.author.id == 117092043955765255:
-        import keystones.db.db_delete_script
-        keystones.db.db_delete_script.main()
-    else:
-        ctx.send('This command is reserved for Hovsep')
-
 @bot.command(name='dungeons',
              aliases=['dungeon'],
              pass_context=True)
