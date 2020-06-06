@@ -19,8 +19,8 @@ mentioning them.
     @help.command(aliases=['dungeon'],
                   pass_context=True)
     async def dungeons(self, ctx):
-        await ctx.send('''
-`!dungeons` - Lists all dungeons and some of their accepted alternative names.
+        await ctx.send(f'''
+`!{ctx.subcommand_passed}` - lists all dungeons and some of their accepted alternative names.
                        ''')
 
     @help.command(name='affix',
@@ -59,13 +59,13 @@ any existing
                   aliases=['keys', 'key', 'keystones', 'keystone'],
                   pass_context=True)
     async def get_keys(self, ctx):
-        await ctx.send('''
-`!keys` - gets all of the caller's keystones.
-`!keys @role` - gets all keystones for users with the mentioned role.
-`!keys @user` - gets all keystones for the mentioned user.
-`!keys @everyone` - gets all keystones for everyone in the server.
-Alternatively, you can use `!keys everyone` or `!keys all`.
-`!keys @here` - gets all keystones for online members in the server.
-Alternatively, you can use `!keys here` or `!keys online`.
+        await ctx.send(f'''
+`!{ctx.subcommand_passed}` - gets all of the caller's keystones.
+`!{ctx.subcommand_passed} @role` - gets all keystones for users with the mentioned role.
+`!{ctx.subcommand_passed} @user` - gets all keystones for the mentioned user.
+`!{ctx.subcommand_passed} @everyone` - gets all keystones for everyone in the server.
+Alternatively, you can use `!{ctx.subcommand_passed} everyone` or `!{ctx.subcommand_passed} all`.
+`!{ctx.subcommand_passed} @here` - gets all keystones for online members in the server.
+Alternatively, you can use `!{ctx.subcommand_passed} here` or `!{ctx.subcommand_passed} online`.
 You can also combine multiple mentions in one command.
                        ''')
