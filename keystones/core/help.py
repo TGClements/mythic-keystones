@@ -35,7 +35,7 @@ mentioning them.
     async def get_period_affixes(self, ctx):
         await ctx.send('''
 `!affixes` - lists information about affixes for this week.
-`!affixes <offset>` - lists information about affixes for <offset> weeks into the future. Only supports an integer offset of 0-12.
+`!affixes <offset>` - lists information about affixes for <offset> weeks into the future. Only supports integer offsets of 0-11.
                        ''')
 
     @help.command(name='timer',
