@@ -1,9 +1,9 @@
 def get_affix_name(affix_id):
-    return _AFFIX_IDS[affix_id]
+    return _AFFIX_IDS.get(affix_id)
 
 
 def get_affix_id(affix_name):
-    return _AFFIX_IDS_REVERSE[affix_name.lower()]
+    return _AFFIX_IDS_REVERSE.get(affix_name.lower())
 
 # From the Blizzard API
 # Needs to be kept like a two way dictionary
