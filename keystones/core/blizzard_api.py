@@ -13,6 +13,8 @@ BLIZZARD_API_TOKEN_URL = 'https://us.battle.net/oauth/token'
 class BlizzardAPI(OAuth):
     __instance = None
 
+    api_base_url = 'https://us.api.blizzard.com/data/wow/'
+
     # Affixes are on a set rotation, but it's not directly available
     # through the API so we need to hardcode the rotation.
     affix_rotation = [
@@ -60,10 +62,10 @@ class BlizzardAPI(OAuth):
 
     def _update_current_period(self):
         # The current period and current period end timestamp are closely related so fetch them together
-        period_data = self.get('https://us.api.blizzard.com/data/wow/mythic-keystone/period/index?namespace=dynamic-us&locale=en_US')
+        period_data = self.get(f'{BlizzardAPI.api_base_url}mythic-keystone/period/index?namespace=dynamic-us&locale=en_US')
         self._current_period = period_data['current_period']['id']
 
-        time_data = self.get(f'https://us.api.blizzard.com/data/wow/mythic-keystone/period/{self._current_period}?namespace=dynamic-us&locale=en_US')
+        time_data = self.get(f'{BlizzardAPI.api_base_url}mythic-keystone/period/{self._current_period}?namespace=dynamic-us&locale=en_US')
         self._current_period_end_timestamp = time_data['end_timestamp']
 
     @property
@@ -77,11 +79,11 @@ class BlizzardAPI(OAuth):
         return BlizzardAPI.affix_rotation[timeperiod % len(BlizzardAPI.affix_rotation)] + [BlizzardAPI.current_seasonal_affix]
 
     def get_affix_details(self, affix_id):
-        data = self.get(f'https://us.api.blizzard.com/data/wow/keystone-affix/{affix_id}?namespace=static-us&locale=en_US')
+        data = self.get(f'{BlizzardAPI.api_base_url}keystone-affix/{affix_id}?namespace=static-us&locale=en_US')
         return (data['name'], data['description'])
 
     def get_dungeon_timers(self, dungeon_id):
-        data = self.get(f'https://us.api.blizzard.com/data/wow/mythic-keystone/dungeon/{dungeon_id}?namespace=dynamic-us&locale=en_US')
+        data = self.get(f'{BlizzardAPI.api_base_url}mythic-keystone/dungeon/{dungeon_id}?namespace=dynamic-us&locale=en_US')
         upgrade_levels = {entry['upgrade_level']: entry['qualifying_duration']
                           for entry in data['keystone_upgrades']}
         return upgrade_levels
