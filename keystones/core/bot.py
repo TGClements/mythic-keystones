@@ -38,7 +38,7 @@ async def get_affix_details(ctx, affix_name):
 
 @bot.command(name='affixes',
              pass_context=True)
-async def get_period_affixes(ctx, period_offset=0):
+async def get_period_affixes(ctx, period_offset="0"):
     await ctx.send(command_validation.get_period_affixes(ctx, period_offset))
 
 @bot.command(name='timer',
