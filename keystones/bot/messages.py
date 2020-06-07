@@ -40,9 +40,12 @@ def format_user_keys(server: discord.Guild, keys: dict):
 
     if key_strings:
         return '\n'.join(key_strings)
+    elif len(keys) == 1:
+        user_id = next(iter(keys))
+        user_name = discord_utils.get_member(server, user_id).display_name
+        return f'There are no keystones for {user_name}.'
     else:
-        plural = 's' if len(keys) > 1 else ''
-        return f'There are no keystones for the mentioned user{plural}'
+        return 'There are no keystones for the mentioned users.'
 
 def format_affix_details(affix_name, affix_description):
     return f'{affix_name}: {affix_description}'
