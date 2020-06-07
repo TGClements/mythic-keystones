@@ -1,7 +1,7 @@
 import time
 from secrets import BLIZZARD_CLIENT_ID, BLIZZARD_CLIENT_SECRET
 
-from keystones.core.oauth import OAuth
+from keystones.external.oauth import OAuth
 
 
 BLIZZARD_API_TOKEN_URL = 'https://us.battle.net/oauth/token'

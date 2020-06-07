@@ -5,7 +5,7 @@ from keystones.core import (command_validation,
                             help,
                             messages)
 
-from keystones.db.database_manager import DatabaseManager
+from keystones.external.database_manager import DatabaseManager
 
 from secrets import DISCORD_TOKEN
 
@@ -14,7 +14,7 @@ bot = commands.Bot(command_prefix='!', description=description)
 bot.remove_command('help')
 bot.add_cog(help.HelpCog())
 
-db_manager = DatabaseManager('./keystones/db/')
+db_manager = DatabaseManager('./keystones/external/')
 
 
 @bot.event

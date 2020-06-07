@@ -1,6 +1,7 @@
 import re
 
-from keystones.core import dungeon_utils, messages, discord_utils, blizzard_api, affix_utils
+from keystones.core import dungeon_utils, messages, discord_utils, affix_utils
+from keystones.external import blizzard_api
 
 
 def insert_keystone(ctx, db_manager, *args) -> str:
