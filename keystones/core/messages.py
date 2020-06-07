@@ -1,6 +1,6 @@
 import discord
 
-from keystones.core import dungeon_utils, discord_utils
+from keystones.utils import discord as discord_utils, dungeon as dungeon_utils
 
 
 def list_dungeons():
