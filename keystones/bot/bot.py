@@ -1,9 +1,9 @@
 from discord.ext import commands
 from time import time, asctime, localtime
 
-from keystones.core import (command_validation,
-                            help,
-                            messages)
+from keystones.bot import (command_validation,
+                           help,
+                           messages)
 
 from keystones.external.database_manager import DatabaseManager
 

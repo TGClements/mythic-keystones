@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 
 from keystones.test.discord_mocks import DiscordMessage, DiscordCtx
 
-from keystones.core.command_validation import insert_keystone
+from keystones.bot.command_validation import insert_keystone
 
 
 class TestInsertKeystones(unittest.TestCase):

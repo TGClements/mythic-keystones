@@ -1,6 +1,6 @@
 import re
 
-from keystones.core import messages
+from keystones.bot import messages
 from keystones.utils import affix as affix_utils, discord as discord_utils, dungeon as dungeon_utils
 from keystones.external import blizzard_api
 

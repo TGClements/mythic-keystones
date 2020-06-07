@@ -1,6 +1,6 @@
 import unittest
 
-from keystones.core.command_validation import sanitize
+from keystones.bot.command_validation import sanitize
 
 
 class TestSanitize(unittest.TestCase):
