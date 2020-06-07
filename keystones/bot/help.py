@@ -46,7 +46,7 @@ mentioning them.
                  pass_context=True)
     async def get_dungeon_timers(self, ctx):
         await ctx.send(f'''
-`!{ctx.subcommand_passed} <dungeon>` - gets information about keystone timers for the specified dungeon.
+`!{ctx.subcommand_passed} <dungeon>` - gets information about how quickly you must complete the specified dungeon for a +1, +2, or +3 upgrade.
                        ''')
 
     @help.command(name='add',
