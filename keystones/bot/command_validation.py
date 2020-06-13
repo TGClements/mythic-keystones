@@ -72,7 +72,7 @@ def get_keystones(ctx, db_manager):
     blizz_api = blizzard_api.BlizzardAPI.get_instance()
     current_timeperiod = blizz_api.current_period
 
-    keys = db_manager.get_keystones_many(mentioned_users, current_timeperiod)
+    keys = db_manager.get_keystones(mentioned_users, current_timeperiod)
     # None signifies an error. `not keys` would be true when the
     # mentioned users don't have keystones in the db
     if keys is None:

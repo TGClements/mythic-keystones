@@ -62,33 +62,7 @@ class DatabaseManager:
         else:
             return True
 
-    def get_keystones_single(self, user_id, timeperiod):
-        """
-
-        Gets the keystones for a single user
-
-        A user can be associated with multiple keystones if they
-        have multiple characters
-        :param user_id: (str) the id for a user
-        :param timeperiod: (int) the timeperiod of keystones to fetch
-        :return: list of tuples containing character name (str),
-        dungeon id (integer), and level (integer)
-        """
-        where_inserts = (user_id, timeperiod)
-        sql_statement = '''
-        SELECT characterName, dungeonID, level
-        FROM Keystones
-        WHERE userID=? AND timeperiod=?;
-        '''
-        try:
-            cur = self.conn.cursor()
-            cur.execute(sql_statement, where_inserts)
-            return cur.fetchall()
-        except Error as e:
-            print(e)
-            return None
-
-    def get_keystones_many(self, user_ids, timeperiod):
+    def get_keystones(self, user_ids, timeperiod):
         """
 
         Gets the keystones for multiple users
