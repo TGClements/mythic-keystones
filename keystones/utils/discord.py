@@ -1,14 +1,6 @@
 import discord
 
 
-def contains_mention_here(message: str):
-    return '@here' in message.split()
-
-
-def contains_mention_everyone(message: str):
-    return '@everyone' in message.split()
-
-
 def contains_here(message: str):
     """ Checks if a string contains @here or similar words """
     target = {'@here', 'here', 'online'}
