@@ -1,25 +1,44 @@
+from enum import Enum
 from typing import List
 
 
-class DiscordUser:
+class MemberStatus(Enum):
+    ONLINE = 'online'
+    OFFLINE = 'offline'
+    IDLE = 'idle'
+    DND = 'dnd'
+    DO_NOT_DISTURB = 'dnd'
+    INVISIBLE = 'invisible'
+
+
+class DiscordMember:
     """
-    A mock Discord User object.
+    A mock Discord Member object.
     """
-    def __init__(self, user_id=1, name='Discord User'):
+    def __init__(self, user_id=1, name='Discord User', **kwargs):
         self.id = user_id
         self.name = name
+
+        self.status = kwargs.get('status', MemberStatus.ONLINE)
+        self.display_name = kwargs.get('display_name', self.name)
 
 
 class DiscordMessage:
     """
     A mock Discord Message object.
     :param content: The message body.
-    :param author: DiscordUser or None
+    :param author: DiscordMember or None
     """
-    def __init__(self, content: str, author=None, id=1):
+    def __init__(self, content: str, author=None, id=1, **kwargs):
         self.content = content
-        self.author = author or DiscordUser()
+        self.author = author or DiscordMember()
         self.id = id
+
+        self.mentions = kwargs.get('mentions', [])
+        self.role_mentions = kwargs.get('role_mentions', [])
+        self.channel = kwargs.get('channel', DiscordTextChannel([]))
+
+        self.raw_mentions = [member.id for member in self.mentions]
 
     def get_args(self) -> List[str]:
         """
@@ -32,15 +51,17 @@ class DiscordCtx:
     """
     A mock Discord Context object.
     """
-    def __init__(self, discord_message: DiscordMessage):
+    def __init__(self, discord_message: DiscordMessage, **kwargs):
         self.message = discord_message
         self.invoked_with = discord_message.content.split().pop(0)[1:]
         self.author = self.message.author
 
+        self.guild = kwargs.get('guild', DiscordGuild([self.author]))
+
 
 class DiscordGuild:
     def __init__(self, members):
-        self._members = {member.user_id: member for member in members}
+        self._members = {member.id: member for member in members}
 
     @property
     def members(self):
@@ -48,3 +69,21 @@ class DiscordGuild:
 
     def get_member(self, user_id):
         return self._members.get(user_id)
+
+
+class DiscordTextChannel:
+    def __init__(self, members, guild=None):
+        self._members = {member.id: member for member in members}
+        self.guild = guild or DiscordGuild(members)
+
+    @property
+    def members(self):
+        return self._members.values()
+
+    def get_member(self, user_id):
+        return self._members.get(user_id)
+
+
+class DiscordRole:
+    def __init__(self, **kwargs):
+        self.members = kwargs.get('members', [])
