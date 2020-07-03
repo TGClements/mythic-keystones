@@ -1,7 +1,7 @@
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
-from keystones.test.discord_mocks import DiscordMessage, DiscordCtx
+from keystones.test.discord_mocks import DiscordMessage, DiscordCtx, DiscordMember, DiscordTextChannel
 
 from keystones.bot.command_validation import get_keystones
 
@@ -11,7 +11,15 @@ class TestGetKeystones(unittest.TestCase):
         self.db_manager = MagicMock()
 
     def test_no_mentions(self):
-        pass
+        author = DiscordMember(1, 'Hovsep')
+        channel = DiscordTextChannel([author])
+        message = DiscordMessage('!keys', author, channel=channel)
+        ctx = DiscordCtx(message)
+
+        self.db_manager.get_keystones = MagicMock(return_value={1: [('toon', 245, 10)]})
+
+        result = get_keystones(ctx, self.db_manager)
+        self.assertEqual(result, 'Hovsep\'s keystones:\n   toon: Freehold 10')
 
     def test_single_mention(self):
         pass
