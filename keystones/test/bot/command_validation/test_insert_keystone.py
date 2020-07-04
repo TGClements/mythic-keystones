@@ -1,11 +1,12 @@
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch, PropertyMock
 
 from keystones.test.discord_mocks import DiscordMessage, DiscordCtx
 
 from keystones.bot.command_validation import insert_keystone
 
 
+@patch('keystones.external.blizzard_api.BlizzardAPI.current_period', PropertyMock(return_value=1))
 class TestInsertKeystones(unittest.TestCase):
     def setUp(self):
         self.db_manager = MagicMock()
