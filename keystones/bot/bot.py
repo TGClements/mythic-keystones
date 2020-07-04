@@ -25,27 +25,32 @@ async def on_ready():
     print(f'Start running at {asctime(localtime(time()))}')
     print('------')
 
+
 @bot.command(name='dungeons',
              aliases=['dungeon'],
              pass_context=True)
 async def list_dungeons(ctx):
     await ctx.send(messages.list_dungeons())
 
+
 @bot.command(name='affix',
              pass_context=True)
 async def get_affix_details(ctx, affix_name):
-    await ctx.send(command_validation.get_affix_details(ctx, affix_name))
+    await ctx.send(command_validation.get_affix_details(affix_name))
+
 
 @bot.command(name='affixes',
              pass_context=True)
 async def get_period_affixes(ctx, period_offset="0"):
-    await ctx.send(command_validation.get_period_affixes(ctx, period_offset))
+    await ctx.send(command_validation.get_period_affixes(period_offset))
+
 
 @bot.command(name='timer',
              aliases=['timers'],
              pass_context=True)
 async def get_dungeon_timers(ctx, *dungeon_name):
-    await ctx.send(command_validation.get_dungeon_timers(ctx, *dungeon_name))
+    await ctx.send(command_validation.get_dungeon_timers(*dungeon_name))
+
 
 @bot.command(name='add',
              pass_context=True)
@@ -72,4 +77,3 @@ def main():
         bot.run(DISCORD_TOKEN)
     finally:
         print(f'End running at {asctime(localtime(time()))}')
-

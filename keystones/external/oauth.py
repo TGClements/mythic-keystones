@@ -11,12 +11,12 @@ class OAuth():
 
         client = self.client = BackendApplicationClient(client_id=client_id)
         self.oauth = OAuth2Session(client=client)
-        self.fetch_token()
+        self.token = self.fetch_token()
 
     def fetch_token(self):
-        token = self.token = self.oauth.fetch_token(token_url=self.token_url,
-            client_id=self.client_id, client_secret=self.client_secret)
-        return self.token
+        return self.oauth.fetch_token(token_url=self.token_url,
+                                      client_id=self.client_id,
+                                      client_secret=self.client_secret)
 
     def get(self, url):
         try:

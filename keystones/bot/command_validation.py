@@ -2,7 +2,7 @@ import re
 
 from keystones.bot import messages
 from keystones.utils import affix as affix_utils, discord as discord_utils, dungeon as dungeon_utils
-from keystones.external import blizzard_api
+from keystones.external.blizzard_api import BlizzardAPI
 
 
 def insert_keystone(ctx, db_manager, *args) -> str:
@@ -31,7 +31,7 @@ def insert_keystone(ctx, db_manager, *args) -> str:
     # should use the real name when confirming that the key was added
     dungeon_name = dungeon_utils.get_dungeon_name(dungeon_id)
 
-    blizz_api = blizzard_api.BlizzardAPI.get_instance()
+    blizz_api = BlizzardAPI.get_instance()
     current_timeperiod = blizz_api.current_period
 
     keystone = (ctx.author.id, character, dungeon_id, level, current_timeperiod)
@@ -69,28 +69,28 @@ def _has_invalid_insertion_args(character, dungeon, level):
 
 def get_keystones(ctx, db_manager):
     mentioned_users = discord_utils.get_all_mentioned_users(ctx.message)
-    blizz_api = blizzard_api.BlizzardAPI.get_instance()
+    blizz_api = BlizzardAPI.get_instance()
     current_timeperiod = blizz_api.current_period
 
     keys = db_manager.get_keystones(mentioned_users, current_timeperiod)
     # None signifies an error. `not keys` would be true when the
     # mentioned users don't have keystones in the db
     if keys is None:
-        return f'There was a problem getting the keystones.'
+        return 'There was a problem getting the keystones.'
 
     message = messages.format_user_keys(ctx.guild, keys)
     return message
 
 
-def get_affix_details(ctx, affix_name):
-    blizz_api = blizzard_api.BlizzardAPI.get_instance()
+def get_affix_details(affix_name):
+    blizz_api = BlizzardAPI.get_instance()
     affix_id = affix_utils.get_affix_id(affix_name)
     affix_details = blizz_api.get_affix_details(affix_id)
 
     return messages.format_affix_details(*affix_details)
 
 
-def get_period_affixes(ctx, period_offset):
+def get_period_affixes(period_offset):
     try:
         period_offset = int(period_offset)
     except ValueError:
@@ -101,14 +101,14 @@ def get_period_affixes(ctx, period_offset):
         # Only allow one full rotation of affixes
         return 'Cannot get affixes more than 11 weeks into the future.'
 
-    blizz_api = blizzard_api.BlizzardAPI.get_instance()
+    blizz_api = BlizzardAPI.get_instance()
     affixes = blizz_api.get_affixes_for_timeperiod(blizz_api.current_period + period_offset)
     affix_names = (affix_utils.get_affix_name(affix_id) for affix_id in affixes)
 
     return messages.format_period_affixes(affix_names)
 
 
-def get_dungeon_timers(ctx, *dungeon_name):
+def get_dungeon_timers(*dungeon_name):
     if not dungeon_name:
         return 'You must enter a dungeon name. Try `!dungeons` to see dungeon names.'
 
@@ -119,7 +119,7 @@ def get_dungeon_timers(ctx, *dungeon_name):
                 f'Try `!dungeons` to see dungeon names.')
     official_dungeon_name = dungeon_utils.get_dungeon_name(dungeon_id)
 
-    blizz_api = blizzard_api.BlizzardAPI.get_instance()
+    blizz_api = BlizzardAPI.get_instance()
     timers = blizz_api.get_dungeon_timers(dungeon_id)
     return messages.format_dungeon_timers(official_dungeon_name, timers)
 

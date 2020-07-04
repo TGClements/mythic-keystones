@@ -27,14 +27,14 @@ mentioning them.
                        ''')
 
     @help.command(name='affix',
-                 pass_context=True)
+                  pass_context=True)
     async def get_affix_details(self, ctx):
         await ctx.send('''
 `!affix <affix_name>` - gets information about the specified affix.
                        ''')
 
     @help.command(name='affixes',
-                 pass_context=True)
+                  pass_context=True)
     async def get_period_affixes(self, ctx):
         await ctx.send('''
 `!affixes` - lists information about affixes for this week.
@@ -42,8 +42,8 @@ mentioning them.
                        ''')
 
     @help.command(name='timer',
-                 aliases=['timers'],
-                 pass_context=True)
+                  aliases=['timers'],
+                  pass_context=True)
     async def get_dungeon_timers(self, ctx):
         await ctx.send(f'''
 `!{ctx.subcommand_passed} <dungeon>` - gets information about how quickly you must complete the specified dungeon for a +1, +2, or +3 upgrade.

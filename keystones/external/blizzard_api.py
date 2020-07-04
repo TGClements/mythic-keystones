@@ -6,6 +6,7 @@ from keystones.external.oauth import OAuth
 
 BLIZZARD_API_TOKEN_URL = 'https://us.battle.net/oauth/token'
 
+
 # A wrapper class that makes accessing the Blizzard api easy.
 # Uses a singleton to be easier to use between commands.
 # Should only be accessed via `get_instance()` instead
@@ -75,12 +76,13 @@ class BlizzardAPI(OAuth):
             self._update_current_period()
         return self._current_period_end_timestamp
 
-    def get_affixes_for_timeperiod(self, timeperiod):
+    @staticmethod
+    def get_affixes_for_timeperiod(timeperiod):
         return BlizzardAPI.affix_rotation[timeperiod % len(BlizzardAPI.affix_rotation)] + [BlizzardAPI.current_seasonal_affix]
 
     def get_affix_details(self, affix_id):
         data = self.get(f'{BlizzardAPI.api_base_url}keystone-affix/{affix_id}?namespace=static-us&locale=en_US')
-        return (data['name'], data['description'])
+        return data['name'], data['description']
 
     def get_dungeon_timers(self, dungeon_id):
         data = self.get(f'{BlizzardAPI.api_base_url}mythic-keystone/dungeon/{dungeon_id}?namespace=dynamic-us&locale=en_US')
