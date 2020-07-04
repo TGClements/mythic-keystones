@@ -65,7 +65,7 @@ class DiscordGuild:
 
     @property
     def members(self):
-        return self._members.values()
+        return list(self._members.values())
 
     def get_member(self, user_id):
         return self._members.get(user_id)
@@ -78,7 +78,7 @@ class DiscordTextChannel:
 
     @property
     def members(self):
-        return self._members.values()
+        return list(self._members.values())
 
     def get_member(self, user_id):
         return self._members.get(user_id)
