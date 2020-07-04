@@ -29,7 +29,7 @@ def format_user_keys(server: discord.Guild, keys: dict):
         if not keys[user_id]:
             continue
 
-        user_name = discord_utils.get_member(server, user_id).display_name
+        user_name = server.get_member(user_id).display_name
         user_header = f'{user_name}\'s keystones:\n'
         user_keys = '\n'.join([
             f'   {character}: '
@@ -42,7 +42,7 @@ def format_user_keys(server: discord.Guild, keys: dict):
         return '\n'.join(key_strings)
     elif len(keys) == 1:
         user_id = next(iter(keys))
-        user_name = discord_utils.get_member(server, user_id).display_name
+        user_name = server.get_member(user_id).display_name
         return f'There are no keystones for {user_name}.'
     else:
         return 'There are no keystones for the mentioned users.'

@@ -85,9 +85,6 @@ class DiscordTextChannel:
     def members(self):
         return list(self._members.values())
 
-    def get_member(self, user_id):
-        return self._members.get(user_id)
-
 
 class DiscordRole:
     def __init__(self, name, **kwargs):
