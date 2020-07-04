@@ -21,6 +21,11 @@ class DiscordMember:
 
         self.status = kwargs.get('status', MemberStatus.ONLINE)
         self.display_name = kwargs.get('display_name', self.name)
+        self.roles = kwargs.get('roles', [DiscordRole('@everyone', members=[self])])
+
+        for role in self.roles:
+            if self not in role.members:
+                role.members.append(self)
 
 
 class DiscordMessage:
@@ -85,5 +90,6 @@ class DiscordTextChannel:
 
 
 class DiscordRole:
-    def __init__(self, **kwargs):
+    def __init__(self, name, **kwargs):
+        self.name = name
         self.members = kwargs.get('members', [])
