@@ -19,18 +19,18 @@ class BlizzardAPI(OAuth):
     # Affixes are on a set rotation, but it's not directly available
     # through the API so we need to hardcode the rotation.
     affix_rotation = [
-        [10, 8, 12],
-        [9, 5, 3],
-        [10, 7, 2],
-        [9, 11, 4],
+        [10, 11, 124],
+        [9, 8, 12],
+        [10, 122, 13],
+        [9, 6, 14],
+        [10, 11, 14],
+        [9, 123, 12],
+        [10, 7, 124],
+        [9, 122, 4],
         [10, 8, 14],
-        [9, 7, 13],
-        [10, 11, 3],
-        [9, 6, 4],
-        [10, 5, 14],
-        [9, 11, 2],
-        [10, 7, 12],
         [9, 6, 13],
+        [10, 123, 3],
+        [9, 7, 4],
     ]
 
     # The seasonal affix is also not available through the api
