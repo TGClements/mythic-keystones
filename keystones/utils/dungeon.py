@@ -7,73 +7,54 @@ def get_dungeon_name(dungeon_id):
 
 
 EXAMPLE_NAMES = {
-    'Atal\'Dazar': [
-        'ataldazar',
-        'ad',
+    'The Necrotic Wake': [
+        'necrotic wake',
+        'wake',
+        'necrotic',
+        'tnw',
     ],
 
-    'Freehold': [
-        'fh',
+    'Plaguefall': [
+        'pf',
+        'plague',
     ],
 
-    'Tol Dagor': [
-        'td',
-        'toldagor',
+    'Mists of Tirna Scithe': [
+        'mts',
+        'mists',
+        'tirna scithe',
     ],
 
-    'The MOTHERLODE!!': [
-        'the motherlode',
-        'ml',
-        'motherlode',
+    'Halls of Atonement': [
+        'hot',
+        'ht',
+        'halls',
+        'atonement',
     ],
 
-    'Waycrest Manor': [
-        'waycrest manor',
-        'waycrest',
-        'wm',
-        'wcm',
+    'Theater of Pain': [
+        'theater',
+        'pain',
+        'top',
     ],
 
-    'King\'s Rest': [
-        'kings rest',
-        'kr',
-        'kings',
+    'De Other Side': [
+        'other side',
+        'dos',
+        'os',
     ],
 
-    'Temple of Sethraliss': [
-        'temple',
-        'sethraliss',
-        'snakes',
-        'tos',
+    'Spires of Ascension': [
+        'soa',
+        'sa',
+        'spires',
+        'ascension',
     ],
 
-    'The Underrot': [
-        'underrot',
-        'ur',
-    ],
-
-    'Shrine of the Storm': [
-        'shrine',
-        'storm',
-        'sots',
-    ],
-
-    'Siege of Boralus': [
-        'siege',
-        'boralus',
-        'sob',
-    ],
-
-    'Operation: Mechagon - Junkyard': [
-        'junkyard',
-        'jy',
-        'junk',
-    ],
-
-    'Operation: Mechagon - Workshop': [
-        'workshop',
-        'ws',
-        'shop',
+    'Sanguine Depths': [
+        'sanguine',
+        'depths',
+        'sd',
     ],
 }
 
@@ -81,106 +62,81 @@ EXAMPLE_NAMES = {
 # This dictionary needs to be available like a two way dictionary.
 # This version is used to get the name of a dungeon for users
 _DUNGEON_IDS = {
-    244: 'Atal\'Dazar',
-    245: 'Freehold',
-    246: 'Tol Dagor',
-    247: 'The MOTHERLODE!!',
-    248: 'Waycrest Manor',
-    249: 'King\'s Rest',
-    250: 'Temple of Sethraliss',
-    251: 'The Underrot',
-    252: 'Shrine of the Storm',
-    353: 'Siege of Boralus',  # Not a typo, the API actually returns 353
-    369: 'Operation: Mechagon - Junkyard',
-    370: 'Operation: Mechagon - Workshop',
+    375: 'Mists of Tirna Scithe',
+    376: 'The Necrotic Wake',
+    377: 'De Other Side',
+    378: 'Halls of Atonement',
+    379: 'Plaguefall',
+    380: 'Sanguine Depths',
+    381: 'Spires of Ascension',
+    382: 'Theater of Pain',
 }
 
 # This dictionary is used to get the id of a dungeon given its name
 _DUNGEON_IDS_REVERSE = {
-    'ataldazar': 244,
-    'freehold': 245,
-    'tol dagor': 246,
-    'the motherlode': 247,
-    'waycrest manor': 248,
-    'kings rest': 249,
-    'temple of sethraliss': 250,
-    'the underrot': 251,
-    'shrine of the storm': 252,
-    'siege of boralus': 353,
-    'junkyard': 369,
-    'workshop': 370,
+    'mists of tirna scithe': 375,
+    'the necrotic wake': 376,
+    'de other side': 377,
+    'halls of atonement': 378,
+    'plaguefall': 379,
+    'sanguine depths': 380,
+    'spires of ascension': 381,
+    'theater of pain': 382,
 }
 
 _ALTERNATIVE_NAMES = {
-    'ataldazar': _DUNGEON_IDS_REVERSE['ataldazar'],
-    'ad': _DUNGEON_IDS_REVERSE['ataldazar'],
-    'atal\'dazar': _DUNGEON_IDS_REVERSE['ataldazar'],
-    'atal': _DUNGEON_IDS_REVERSE['ataldazar'],
+    'the necrotic wake': _DUNGEON_IDS_REVERSE['the necrotic wake'],
+    'necrotic wake': _DUNGEON_IDS_REVERSE['the necrotic wake'],
+    'tnw': _DUNGEON_IDS_REVERSE['the necrotic wake'],
+    'nw': _DUNGEON_IDS_REVERSE['the necrotic wake'],
+    'wake': _DUNGEON_IDS_REVERSE['the necrotic wake'],
+    'necrotic': _DUNGEON_IDS_REVERSE['the necrotic wake'],
+    'necro': _DUNGEON_IDS_REVERSE['the necrotic wake'],
 
-    'freehold': _DUNGEON_IDS_REVERSE['freehold'],
-    'fh': _DUNGEON_IDS_REVERSE['freehold'],
+    'plaguefall': _DUNGEON_IDS_REVERSE['plaguefall'],
+    'pf': _DUNGEON_IDS_REVERSE['plaguefall'],
+    'plague': _DUNGEON_IDS_REVERSE['plaguefall'],
 
-    'tol dagor': _DUNGEON_IDS_REVERSE['tol dagor'],
-    'td': _DUNGEON_IDS_REVERSE['tol dagor'],
-    'toldagor': _DUNGEON_IDS_REVERSE['tol dagor'],
-    'tol': _DUNGEON_IDS_REVERSE['tol dagor'],
-    'dagor': _DUNGEON_IDS_REVERSE['tol dagor'],
+    'mists of tirna scithe': _DUNGEON_IDS_REVERSE['mists of tirna scithe'],
+    'mists': _DUNGEON_IDS_REVERSE['mists of tirna scithe'],
+    'tirna scithe': _DUNGEON_IDS_REVERSE['mists of tirna scithe'],
+    'mts': _DUNGEON_IDS_REVERSE['mists of tirna scithe'],
+    'mots': _DUNGEON_IDS_REVERSE['mists of tirna scithe'],
+    'tirna': _DUNGEON_IDS_REVERSE['mists of tirna scithe'],
 
-    'the motherlode': _DUNGEON_IDS_REVERSE['the motherlode'],
-    'ml': _DUNGEON_IDS_REVERSE['the motherlode'],
-    'motherlode': _DUNGEON_IDS_REVERSE['the motherlode'],
-    'the motherlode!': _DUNGEON_IDS_REVERSE['the motherlode'],
-    'the motherlode!!': _DUNGEON_IDS_REVERSE['the motherlode'],
-    'motherlode!': _DUNGEON_IDS_REVERSE['the motherlode'],
-    'motherlode!!': _DUNGEON_IDS_REVERSE['the motherlode'],
+    'halls of atonement': _DUNGEON_IDS_REVERSE['halls of atonement'],
+    'halls': _DUNGEON_IDS_REVERSE['halls of atonement'],
+    'hot': _DUNGEON_IDS_REVERSE['halls of atonement'],
+    'atonement': _DUNGEON_IDS_REVERSE['halls of atonement'],
+    'atone': _DUNGEON_IDS_REVERSE['halls of atonement'],
+    'ht': _DUNGEON_IDS_REVERSE['halls of atonement'],
+    'hall of atonement': _DUNGEON_IDS_REVERSE['halls of atonement'],
+    'hall': _DUNGEON_IDS_REVERSE['halls of atonement'],
 
-    'waycrest manor': _DUNGEON_IDS_REVERSE['waycrest manor'],
-    'waycrest': _DUNGEON_IDS_REVERSE['waycrest manor'],
-    'manor': _DUNGEON_IDS_REVERSE['waycrest manor'],
-    'wm': _DUNGEON_IDS_REVERSE['waycrest manor'],
-    'wcm': _DUNGEON_IDS_REVERSE['waycrest manor'],
+    'theater of pain': _DUNGEON_IDS_REVERSE['theater of pain'],
+    'theater': _DUNGEON_IDS_REVERSE['theater of pain'],
+    'top': _DUNGEON_IDS_REVERSE['theater of pain'],
+    'tp': _DUNGEON_IDS_REVERSE['theater of pain'],
+    'pain': _DUNGEON_IDS_REVERSE['theater of pain'],
 
+    'de other side': _DUNGEON_IDS_REVERSE['de other side'],
+    'other side': _DUNGEON_IDS_REVERSE['de other side'],
+    'dos': _DUNGEON_IDS_REVERSE['de other side'],
+    'os': _DUNGEON_IDS_REVERSE['de other side'],
+    'the other side': _DUNGEON_IDS_REVERSE['de other side'],
+    'tos': _DUNGEON_IDS_REVERSE['de other side'],
 
-    'kings rest': _DUNGEON_IDS_REVERSE['kings rest'],
-    'king\'s rest': _DUNGEON_IDS_REVERSE['kings rest'],
-    'kr': _DUNGEON_IDS_REVERSE['kings rest'],
-    'kings': _DUNGEON_IDS_REVERSE['kings rest'],
-    'rest': _DUNGEON_IDS_REVERSE['kings rest'],
+    'spires of ascension': _DUNGEON_IDS_REVERSE['spires of ascension'],
+    'spires': _DUNGEON_IDS_REVERSE['spires of ascension'],
+    'spire': _DUNGEON_IDS_REVERSE['spires of ascension'],
+    'soa': _DUNGEON_IDS_REVERSE['spires of ascension'],
+    'sa': _DUNGEON_IDS_REVERSE['spires of ascension'],
+    'ascension': _DUNGEON_IDS_REVERSE['spires of ascension'],
 
-    'temple of sethraliss': _DUNGEON_IDS_REVERSE['temple of sethraliss'],
-    'temple': _DUNGEON_IDS_REVERSE['temple of sethraliss'],
-    'sethraliss': _DUNGEON_IDS_REVERSE['temple of sethraliss'],
-    'temple of sethralis': _DUNGEON_IDS_REVERSE['temple of sethraliss'],
-    'sethralis': _DUNGEON_IDS_REVERSE['temple of sethraliss'],
-    'snakes': _DUNGEON_IDS_REVERSE['temple of sethraliss'],
-    'tos': _DUNGEON_IDS_REVERSE['temple of sethraliss'],
-
-    'the underrot': _DUNGEON_IDS_REVERSE['the underrot'],
-    'underrot': _DUNGEON_IDS_REVERSE['the underrot'],
-    'underot': _DUNGEON_IDS_REVERSE['the underrot'],
-    'ur': _DUNGEON_IDS_REVERSE['the underrot'],
-
-    'shrine of the storm': _DUNGEON_IDS_REVERSE['shrine of the storm'],
-    'shrine': _DUNGEON_IDS_REVERSE['shrine of the storm'],
-    'storm': _DUNGEON_IDS_REVERSE['shrine of the storm'],
-    'sots': _DUNGEON_IDS_REVERSE['shrine of the storm'],
-
-    'siege of boralus': _DUNGEON_IDS_REVERSE['siege of boralus'],
-    'siege': _DUNGEON_IDS_REVERSE['siege of boralus'],
-    'boralus': _DUNGEON_IDS_REVERSE['siege of boralus'],
-    'sob': _DUNGEON_IDS_REVERSE['siege of boralus'],
-
-    'junkyard': _DUNGEON_IDS_REVERSE['junkyard'],
-    'operation: mechagon - junkyard': _DUNGEON_IDS_REVERSE['junkyard'],
-    'mechagon - junkyard' : _DUNGEON_IDS_REVERSE['junkyard'],
-    'mechagon junkyard': _DUNGEON_IDS_REVERSE['junkyard'],
-    'jy': _DUNGEON_IDS_REVERSE['junkyard'],
-    'junk': _DUNGEON_IDS_REVERSE['junkyard'],
-
-    'workshop': _DUNGEON_IDS_REVERSE['workshop'],
-    'operation: mechagon - workshop': _DUNGEON_IDS_REVERSE['workshop'],
-    'mechagon - workshop': _DUNGEON_IDS_REVERSE['workshop'],
-    'mechagon workshop': _DUNGEON_IDS_REVERSE['workshop'],
-    'ws': _DUNGEON_IDS_REVERSE['workshop'],
-    'shop': _DUNGEON_IDS_REVERSE['workshop'],
+    'sanguine depths': _DUNGEON_IDS_REVERSE['sanguine depths'],
+    'sanguine': _DUNGEON_IDS_REVERSE['sanguine depths'],
+    'depths': _DUNGEON_IDS_REVERSE['sanguine depths'],
+    'sd': _DUNGEON_IDS_REVERSE['sanguine depths'],
+    'sanguine depth': _DUNGEON_IDS_REVERSE['sanguine depths'],
+    'depth': _DUNGEON_IDS_REVERSE['sanguine depths'],
 }
