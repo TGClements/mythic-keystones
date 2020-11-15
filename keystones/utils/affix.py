@@ -27,6 +27,10 @@ _AFFIX_IDS = {
     117: 'Reaping',
     119: 'Beguiling',
     120: 'Awakened',
+    121: 'Prideful',
+    122: 'Inspiring',
+    123: 'Spiteful',
+    124: 'Storming',
 }
 
 
@@ -50,4 +54,8 @@ _AFFIX_IDS_REVERSE = {
     'reaping': 117,
     'beguiling': 119,
     'awakened': 120,
+    'prideful': 121,
+    'inspiring': 122,
+    'spiteful': 123,
+    'storming': 124,
 }

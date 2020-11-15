@@ -35,7 +35,7 @@ class BlizzardAPI(OAuth):
 
     # The seasonal affix is also not available through the api
     # so we need to manually set it as well
-    current_seasonal_affix = 120
+    current_seasonal_affix = 121
 
     @staticmethod
     def get_instance():
