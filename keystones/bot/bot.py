@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 from time import time, asctime, localtime
 
@@ -9,8 +10,9 @@ from keystones.external.database_manager import DatabaseManager
 
 from secrets import DISCORD_TOKEN
 
+intents = discord.Intents.all()
 description = 'A bot to keep track of mythic keystones'
-bot = commands.Bot(command_prefix='!', description=description)
+bot = commands.Bot(command_prefix='!', description=description, intents=intents)
 bot.remove_command('help')
 bot.add_cog(help.HelpCog())
 
