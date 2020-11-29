@@ -1,5 +1,5 @@
 # Keystones
-A Discord bot to track mythic keystones in World of Warcraft using [discord.py](https://github.com/Rapptz/discord.py). *Updated for Shadowlands*
+A Discord bot to track mythic keystones in World of Warcraft using [discord.py](https://github.com/Rapptz/discord.py). **Updated for Shadowlands.**
 
 ## Key Features
 
