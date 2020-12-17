@@ -29,7 +29,11 @@ A Discord bot to track mythic keystones in World of Warcraft using [discord.py](
     
 - And more - use the `!help` command for more details about each command
 
-## Running the bot
+## Add the bot to your server
+
+Use [this link](https://discord.com/api/oauth2/authorize?client_id=544014565348737026&permissions=2048&scope=bot) to add the bot to your server. You must be a server admin to add the bot.
+
+## Run the bot on your own
 
 Requires [python 3.6.3](https://www.python.org/downloads/release/python-363/) to run.
 
