@@ -13,7 +13,7 @@ from secrets import DISCORD_TOKEN
 intents = discord.Intents.all()
 description = 'A bot to keep track of mythic keystones'
 bot = commands.Bot(command_prefix='!', description=description, intents=intents)
-bot.remove_command('help')
+#bot.remove_command('help')
 bot.add_cog(help.HelpCog())
 
 db_manager = DatabaseManager('./keystones/external/')

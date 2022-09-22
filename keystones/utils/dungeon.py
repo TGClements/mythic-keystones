@@ -7,54 +7,60 @@ def get_dungeon_name(dungeon_id):
 
 
 EXAMPLE_NAMES = {
-    'The Necrotic Wake': [
-        'necrotic wake',
-        'wake',
-        'necrotic',
-        'tnw',
+    'Iron Docks': [
+	'iron docks',
+        'id',
+        'docks',
     ],
 
-    'Plaguefall': [
-        'pf',
-        'plague',
+    'Grimrail Depot': [
+	'grimrail depot',
+	'gd',
+        'grimrail',
+	'rail',
+	'depot',
     ],
 
-    'Mists of Tirna Scithe': [
-        'mts',
-        'mists',
-        'tirna scithe',
+    'Return to Karazhan: Upper': [
+	'return to karazhan: upper',
+        'upper',
+        'upper kara',
+        'kara upper',
     ],
 
-    'Halls of Atonement': [
-        'hot',
-        'ht',
-        'halls',
-        'atonement',
+    'Return to Karazhan: Lower': [
+	'return to karazhan: lower',
+        'lower',
+        'lower kara',
+        'kara lower',
+	'beans',
     ],
 
-    'Theater of Pain': [
-        'theater',
-        'pain',
-        'top',
+    'Operation: Mechagon - Junkyard': [
+	'operation: mechagon - junkyard',
+        'junkyard',
+        'yard',
+	'jy',
+	'junk',
     ],
 
-    'De Other Side': [
-        'other side',
-        'dos',
-        'os',
+    'Operation: Mechagon - Workshop': [
+	'operation: mechagon - workshop',
+        'workshop',
+	'shop',
+        'work',
+	'ws',
     ],
 
-    'Spires of Ascension': [
-        'soa',
-        'sa',
-        'spires',
-        'ascension',
+    'Tazavesh: So\'leah\'s Gambit': [
+	'tazavesh: so\'leah\'s gambit',
+	'so\'leah\'s',
+	'soleahs',
+        'gambit',
     ],
 
-    'Sanguine Depths': [
-        'sanguine',
-        'depths',
-        'sd',
+    'Tazavesh: Streets of Wonder': [
+        'streets',
     ],
 }
 
@@ -70,6 +76,14 @@ _DUNGEON_IDS = {
     380: 'Sanguine Depths',
     381: 'Spires of Ascension',
     382: 'Theater of Pain',
+    169: 'Iron Docks',
+    166: 'Grimrail Depot',
+    234: 'Return to Karazhan: Upper',
+    227: 'Return to Karazhan: Lower',
+    369: 'Operation: Mechagon - Junkyard',
+    370: 'Operation: Mechagon - Workshop',
+    392: 'Tazavesh: So\'leah\'s Gambit',
+    391: 'Tazavesh: Streets of Wonder',
 }
 
 # This dictionary is used to get the id of a dungeon given its name
@@ -82,6 +96,14 @@ _DUNGEON_IDS_REVERSE = {
     'sanguine depths': 380,
     'spires of ascension': 381,
     'theater of pain': 382,
+    'iron docks': 169,
+    'grimrail depot': 166,
+    'return to karazhan: upper': 234,
+    'return to karazhan: lower': 227,
+    'operation: mechagon - junkyard': 369,
+    'operation: mechagon - workshop': 370,
+    'tazavesh: so\'leah\'s gambit': 392,
+    'tazavesh: streets of wonder': 391,
 }
 
 _ALTERNATIVE_NAMES = {
@@ -139,4 +161,37 @@ _ALTERNATIVE_NAMES = {
     'sd': _DUNGEON_IDS_REVERSE['sanguine depths'],
     'sanguine depth': _DUNGEON_IDS_REVERSE['sanguine depths'],
     'depth': _DUNGEON_IDS_REVERSE['sanguine depths'],
+
+    'iron docks': _DUNGEON_IDS_REVERSE['iron docks'],
+    'id': _DUNGEON_IDS_REVERSE['iron docks'],
+    'docks': _DUNGEON_IDS_REVERSE['iron docks'],
+
+    'grimrail depot': _DUNGEON_IDS_REVERSE['grimrail depot'],
+    'gd': _DUNGEON_IDS_REVERSE['grimrail depot'],
+    'grimrail': _DUNGEON_IDS_REVERSE['grimrail depot'],
+    'rail': _DUNGEON_IDS_REVERSE['grimrail depot'],
+    'depot': _DUNGEON_IDS_REVERSE['grimrail depot'],
+
+    'upper': _DUNGEON_IDS_REVERSE['return to karazhan: upper'],
+    'upper kara': _DUNGEON_IDS_REVERSE['return to karazhan: upper'],
+    'kara upper': _DUNGEON_IDS_REVERSE['return to karazhan: upper'],
+
+    'lower': _DUNGEON_IDS_REVERSE['return to karazhan: lower'],
+    'lower kara': _DUNGEON_IDS_REVERSE['return to karazhan: lower'],
+    'kara lower': _DUNGEON_IDS_REVERSE['return to karazhan: lower'],
+    'beans': _DUNGEON_IDS_REVERSE['return to karazhan: lower'],
+
+    'junkyard': _DUNGEON_IDS_REVERSE['operation: mechagon - junkyard'],
+    'yard': _DUNGEON_IDS_REVERSE['operation: mechagon - junkyard'],
+    'jy': _DUNGEON_IDS_REVERSE['operation: mechagon - junkyard'],
+
+    'workshop': _DUNGEON_IDS_REVERSE['operation: mechagon - workshop'],
+    'shop': _DUNGEON_IDS_REVERSE['operation: mechagon - workshop'],
+    'work': _DUNGEON_IDS_REVERSE['operation: mechagon - workshop'],
+    'ws': _DUNGEON_IDS_REVERSE['operation: mechagon - workshop'],
+
+    'gambit': _DUNGEON_IDS_REVERSE['tazavesh: so\'leah\'s gambit'],
+    'soleahs': _DUNGEON_IDS_REVERSE['tazavesh: so\'leah\'s gambit'],
+
+    'streets': _DUNGEON_IDS_REVERSE['tazavesh: streets of wonder'],
 }

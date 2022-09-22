@@ -22,7 +22,6 @@ _AFFIX_IDS = {
     12: 'Grievous',
     13: 'Explosive',
     14: 'Quaking',
-    15: 'Relentless',
     16: 'Infested',
     117: 'Reaping',
     119: 'Beguiling',
@@ -31,6 +30,9 @@ _AFFIX_IDS = {
     122: 'Inspiring',
     123: 'Spiteful',
     124: 'Storming',
+    130: 'Encrypted',
+    129: 'Infernal',
+    131: 'Shrouded',
 }
 
 
@@ -49,7 +51,6 @@ _AFFIX_IDS_REVERSE = {
     'grievous': 12,
     'explosive': 13,
     'quaking': 14,
-    'relentless': 15,
     'infested': 16,
     'reaping': 117,
     'beguiling': 119,
@@ -58,4 +59,7 @@ _AFFIX_IDS_REVERSE = {
     'inspiring': 122,
     'spiteful': 123,
     'storming': 124,
+    'encrypted': 130,
+    'infernal': 129,
+    'shrouded': 131,
 }
