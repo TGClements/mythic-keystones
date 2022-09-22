@@ -1,6 +1,7 @@
 *.db
 secrets.py
 secrets_example.py
+secrets_example.py
 *.idea
 venv
 
