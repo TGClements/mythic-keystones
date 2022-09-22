@@ -9,4 +9,4 @@ bot = commands.Bot(command_prefix='>', intents=intents)
 async def ping(ctx):
     await ctx.send('pong')
 
-bot.run('MTAxNjgxNzExNDYyNTA5Nzg3OQ.GqBl81.E_r63vHbwqZxvPY2KWz2u4pR318GPDfCOkFIp4')
+bot.run('')
