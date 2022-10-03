@@ -4,6 +4,31 @@ from keystones.bot import messages
 from keystones.utils import affix as affix_utils, discord as discord_utils, dungeon as dungeon_utils
 from keystones.external.blizzard_api import BlizzardAPI
 
+# vWIPv
+def remove_keystone(ctx, db_manager, *args) -> str:
+    """
+    Attempt to remove a keystone based on a user command.
+    :param ctx: (discord.Context) - context object for invoked command
+    :param args: (tuple of str) - arguments used for the bot command
+    :param db_manager: (DatabaseManager) - manager for db being used
+    :return: (str) - message to send to Discord client
+    """
+    # Needs a character to remove from database
+    if len(args) != 1:
+        return (f'I\'m sorry, I didn\'t understand that. Try `!help {ctx.invoked_with}` for help with formatting.')
+
+    character = args[0].strip()
+
+    validation_message = validate_character(character)
+    if validation_message:
+        return validation_message
+
+    keystone = (ctx.author.id, character)
+    if not db_manager.remove_keystone(keystone):
+        return (f'There was a problem removing the keystone for {character}.')
+
+    return f'Removed the keystone for {character}'
+# ^WIP^
 
 def insert_keystone(ctx, db_manager, *args) -> str:
     """
@@ -52,9 +77,12 @@ def _has_invalid_insertion_args(character, dungeon, level):
     :return: (str or None) A string containing an error message,
               or None if the arguments are all valid
     """
+
     if not re.match('^[\w-]+$', character):
         return (f'Character names can only contain letters, numbers, '
                 f'underscores, and dashes.')
+
+    #if validate_character(character)
 
     dungeon_id = dungeon_utils.get_dungeon_id(dungeon)
     if not dungeon_id:
@@ -66,6 +94,16 @@ def _has_invalid_insertion_args(character, dungeon, level):
 
     return None
 
+
+# vWIPv
+def validate_character(character):
+    """
+    Validates the character name.
+    :param character: (str) character name associated with a key
+    """
+    if not re.match('^[\w-]+$', character):
+        return (f'Character names can only contain letters, numbers, underscores, and dashes.')
+# ^WIP^
 
 def get_keystones(ctx, db_manager):
     mentioned_users = discord_utils.get_all_mentioned_users(ctx.message)

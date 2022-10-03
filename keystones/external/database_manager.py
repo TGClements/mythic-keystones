@@ -62,6 +62,56 @@ class DatabaseManager:
         else:
             return True
 
+
+#WIP adding functionality to remove a keystone if something is mistyped or someone cant
+#remember the name they use for the keystone they have
+
+    def remove_keystone(self, remove_values):
+        """
+
+        Removes a row in the Keystones table for a character's keystone
+
+        This method removes a row from the Keystones table in case a keystone was incorrectly entered.
+        :param remove_values: (tuple) a tuple containing the userID and characterName
+        :return: (bool) True if the transaction was successful
+        """
+        
+        # SQL query for checking if the requested character exists in the database
+        sql_statement_checkExist = '''
+        SELECT characterName, dungeonID, level
+        FROM Keystones
+        WHERE userID=? and characterName=?;
+        '''
+        try:
+            cur = self.conn.cursor()
+            response = cur.execute(sql_statement_checkExist, remove_values)
+            if response.fetchone():
+                print("Character exists - can delete keystone.")
+            else:
+                print("Character does not exist - refusing delete request.")
+                return False
+        except Error as e:
+            print(e)
+            return False
+
+        sql_statement_delete = '''
+        DELETE
+        FROM Keystones
+        WHERE userID=? and characterName=?;
+        '''
+        try:
+            cur = self.conn.cursor()
+            cur.execute(sql_statement_delete, remove_values)
+            self.conn.commit()
+        except Error as e:
+            print(e)
+            return False
+        else:
+            return True
+
+
+#WIP
+
     def get_keystones(self, user_ids, timeperiod):
         """
 
