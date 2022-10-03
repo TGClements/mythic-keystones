@@ -62,13 +62,8 @@ class DatabaseManager:
         else:
             return True
 
-
-#WIP adding functionality to remove a keystone if something is mistyped or someone cant
-#remember the name they use for the keystone they have
-
     def remove_keystone(self, remove_values):
         """
-
         Removes a row in the Keystones table for a character's keystone
 
         This method removes a row from the Keystones table in case a keystone was incorrectly entered.
@@ -108,9 +103,6 @@ class DatabaseManager:
             return False
         else:
             return True
-
-
-#WIP
 
     def get_keystones(self, user_ids, timeperiod):
         """

@@ -66,7 +66,6 @@ async def add_key(ctx, *args):
     """
     await ctx.send(command_validation.insert_keystone(ctx, db_manager, *args))
 
-# WIP for removing keystone
 @bot.command(name='remove',
 	     aliases=['rm'],
 	     pass_context=True)

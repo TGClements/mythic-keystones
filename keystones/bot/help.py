@@ -58,7 +58,6 @@ dungeon and level for your character with the given name. This will overwrite
 any existing
                        ''')
 
-# WIP
     @help.command(name='remove',
 		  aliases=['rm'],
 		  pass_context=True)
