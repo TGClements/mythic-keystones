@@ -5,7 +5,7 @@ A Discord bot to track mythic keystones in World of Warcraft using [discord.py](
 
 - Keep track of keystones for your characters
 
-    ![Example of !add command](https://imgur.com/tIEpNym.png)
+    ![Example of !add command](https://i.imgur.com/DXcp6Eo.png)
     
 - Show the latest keystones for anyone in your server
 
