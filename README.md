@@ -28,6 +28,7 @@ A Discord bot to track mythic keystones in World of Warcraft using [discord.py](
     ![Example of !dungeons command](https://i.imgur.com/z3PBgJI.png)
     
 - Remove a character's keystone
+- 
     ![Example of !remove command](https://i.imgur.com/XZ7Ty45.png)
     
 - And more - use the `!help` command for more details about each command
