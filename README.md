@@ -9,7 +9,7 @@ A Discord bot to track mythic keystones in World of Warcraft using [discord.py](
     
 - Show the latest keystones for anyone in your server
 
-    ![Example of !keys command](https://imgur.com/LZ1ZDry.png)
+    ![Example of !keys command](https://i.imgur.com/azmKy71.png)
     
 - Check this week's affixes
 
