@@ -66,6 +66,16 @@ async def add_key(ctx, *args):
     """
     await ctx.send(command_validation.insert_keystone(ctx, db_manager, *args))
 
+@bot.command(name='remove',
+	     aliases=['rm'],
+	     pass_context=True)
+async def remove_key(ctx, *args):
+    """
+    Removes a keystone for a user's character.
+
+    Requires 1 arg: a character name. The character name must be a single word.
+    """
+    await ctx.send(command_validation.remove_keystone(ctx, db_manager, *args))
 
 @bot.command(name='get',
              aliases=['keys', 'key', 'keystones', 'keystone'],

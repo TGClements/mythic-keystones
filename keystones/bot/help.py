@@ -58,6 +58,14 @@ dungeon and level for your character with the given name. This will overwrite
 any existing
                        ''')
 
+    @help.command(name='remove',
+		  aliases=['rm'],
+		  pass_context=True)
+    async def remove_key(self, ctx):
+        await ctx.send('''
+`!{ctx.subcommand_passed} <character>` - removes a keystone for the specified character name.
+		       ''')
+
     @help.command(name='get',
                   aliases=['keys', 'key', 'keystones', 'keystone'],
                   pass_context=True)
