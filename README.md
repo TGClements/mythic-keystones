@@ -13,19 +13,22 @@ A Discord bot to track mythic keystones in World of Warcraft using [discord.py](
     
 - Check this week's affixes
 
-    ![Example of !affixes command](https://imgur.com/8aReCE4.png)
+    ![Example of !affixes command](https://i.imgur.com/Y9GxvYh.png)
     
 - Get information about a specific affix
 
-    ![Example of !affix command](https://imgur.com/9bFGic0.png)
+    ![Example of !affix command](https://i.imgur.com/oBsLh4t.png)
     
 - See the timers for a specific dungeon
 
-    ![Example of !timer command](https://imgur.com/fxcOkxC.png)
+    ![Example of !timer command](https://i.imgur.com/14I0ssB.png)
     
 - List all of the dungeons with some of their alternative names
 
-    ![Example of !dungeons command](https://imgur.com/RJsoAsb.png)
+    ![Example of !dungeons command](https://i.imgur.com/z3PBgJI.png)
+    
+- Remove a character's keystone 
+    ![Example of !remove command](https://i.imgur.com/XZ7Ty45.png)
     
 - And more - use the `!help` command for more details about each command
 
@@ -44,4 +47,4 @@ Requires [python 3.6.3](https://www.python.org/downloads/release/python-363/) to
 
 ## Bug reports, feature requests, and other issues
 
-If you find an issue with the bot or think of a feature that would be useful, [open an issue](https://github.com/Hovspian/keystones/issues/new/choose).
+If you find an issue with the bot or think of a feature that would be useful, [open an issue](https://github.com/TGClements/mythic-keystones/issues/new/choose).
