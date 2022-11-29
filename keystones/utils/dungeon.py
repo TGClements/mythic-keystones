@@ -82,27 +82,27 @@ EXAMPLE_NAMES = {
 # This version is used to get the name of a dungeon for users
 _DUNGEON_IDS = {
 # DF Season 1 Dungeons
-    000: 'Ruby Life Pools',
-    000: 'The Nokhud Offensive',
-    000: 'The Azure Vault',
-    000: 'Algeth\'ar Academy',
-    000: 'Halls of Valor',
-    000: 'Court of Stars',
-    000: 'Shadowmoon Burial Grounds',
-    000: 'Temple of the Jade Serpent',
+    399: 'Ruby Life Pools',
+    400: 'The Nokhud Offensive',
+    401: 'The Azure Vault',
+    402: 'Algeth\'ar Academy',
+    200: 'Halls of Valor',
+    210: 'Court of Stars',
+    165: 'Shadowmoon Burial Grounds',
+    2: 'Temple of the Jade Serpent',
 }
 
 # This dictionary is used to get the id of a dungeon given its name
 _DUNGEON_IDS_REVERSE = {
 # DF Season 1 Dungeons
-    'ruby life pools': 000,
-    'the nokhud offensive': 000,
-    'the azure vault': 000,
-    'algeth\'ar academy': 000,
-    'halls of valor': 000,
-    'court of stars': 000,
-    'shadowmoon burial grounds': 000,
-    'temple of the jade serpent': 000,
+    'ruby life pools': 399,
+    'the nokhud offensive': 400,
+    'the azure vault': 401,
+    'algeth\'ar academy': 402,
+    'halls of valor': 200,
+    'court of stars': 210,
+    'shadowmoon burial grounds': 165,
+    'temple of the jade serpent': 2,
 }
 
 _ALTERNATIVE_NAMES = {

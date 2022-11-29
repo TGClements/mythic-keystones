@@ -33,6 +33,7 @@ _AFFIX_IDS = {
     130: 'Encrypted',
     129: 'Infernal',
     131: 'Shrouded',
+    132: 'Thundering',
 }
 
 
@@ -62,4 +63,5 @@ _AFFIX_IDS_REVERSE = {
     'encrypted': 130,
     'infernal': 129,
     'shrouded': 131,
+    'thundering':132,
 }
