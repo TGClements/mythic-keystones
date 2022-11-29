@@ -62,10 +62,6 @@ class DatabaseManager:
         else:
             return True
 
-
-#WIP adding functionality to remove a keystone if something is mistyped or someone cant
-#remember the name they use for the keystone they have
-
     def remove_keystone(self, remove_values):
         """
 
@@ -108,9 +104,6 @@ class DatabaseManager:
             return False
         else:
             return True
-
-
-#WIP
 
     def get_keystones(self, user_ids, timeperiod):
         """

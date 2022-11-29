@@ -4,7 +4,6 @@ from keystones.bot import messages
 from keystones.utils import affix as affix_utils, discord as discord_utils, dungeon as dungeon_utils
 from keystones.external.blizzard_api import BlizzardAPI
 
-# vWIPv
 def remove_keystone(ctx, db_manager, *args) -> str:
     """
     Attempt to remove a keystone based on a user command.
@@ -28,7 +27,6 @@ def remove_keystone(ctx, db_manager, *args) -> str:
         return (f'There was a problem removing the keystone for {character}.')
 
     return f'Removed the keystone for {character}'
-# ^WIP^
 
 def insert_keystone(ctx, db_manager, *args) -> str:
     """
