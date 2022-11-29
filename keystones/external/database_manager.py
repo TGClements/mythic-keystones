@@ -64,6 +64,7 @@ class DatabaseManager:
 
     def remove_keystone(self, remove_values):
         """
+
         Removes a row in the Keystones table for a character's keystone
 
         This method removes a row from the Keystones table in case a keystone was incorrectly entered.
